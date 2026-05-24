@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 import { queryClient } from '@/src/lib/query-client';
 import { createUser } from '@/src/services/admin';
 import type { CreateUserRequest } from '@/src/types/admin';
@@ -63,6 +63,7 @@ function getErrorMessage(error: unknown) {
 }
 
 export default function CreateUserScreen() {
+  const colors = useColors();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');

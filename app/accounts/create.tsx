@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 import { createAccount } from '@/src/services/admin';
 import type { AccountType, CreateAccountRequest } from '@/src/types/admin';
 
@@ -72,6 +72,7 @@ function getErrorMessage(error: unknown) {
 }
 
 export default function CreateAdminAccountScreen() {
+  const colors = useColors();
   const queryClient = useQueryClient();
   const [name, setName] = useState('');
   const [platform, setPlatform] = useState('anthropic');

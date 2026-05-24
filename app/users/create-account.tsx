@@ -4,13 +4,14 @@ import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 import { createAccount } from '@/src/services/admin';
 import type { AccountType } from '@/src/types/admin';
 
 const PLATFORM_OPTIONS = ['anthropic', 'openai', 'gemini', 'sora', 'antigravity'];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  const colors = useColors();
   return (
     <View
       style={{
@@ -86,6 +87,7 @@ function parseJsonObject(raw: string) {
 }
 
 export default function CreateAccountScreen() {
+  const colors = useColors();
   const queryClient = useQueryClient();
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');

@@ -1,13 +1,28 @@
-import { Redirect, Tabs } from 'expo-router';
-import { ChartNoAxesCombined, Settings2, Users } from 'lucide-react-native';
+import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
+import type {
+  NativeBottomTabNavigationEventMap,
+  NativeBottomTabNavigationOptions,
+} from '@bottom-tabs/react-navigation';
+import type { ParamListBase, TabNavigationState } from '@react-navigation/native';
+import { Redirect, withLayoutContext } from 'expo-router';
 
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 import { adminConfigState, hasAuthenticatedAdminSession } from '@/src/store/admin-config';
 
 const { useSnapshot } = require('valtio/react');
 
+const { Navigator } = createNativeBottomTabNavigator();
+
+const Tabs = withLayoutContext<
+  NativeBottomTabNavigationOptions,
+  typeof Navigator,
+  TabNavigationState<ParamListBase>,
+  NativeBottomTabNavigationEventMap
+>(Navigator);
+
 export default function TabsLayout() {
   const config = useSnapshot(adminConfigState);
+  const colors = useColors();
   const hasAccount = hasAuthenticatedAdminSession(config);
 
   if (!hasAccount) {
@@ -16,49 +31,34 @@ export default function TabsLayout() {
 
   return (
     <Tabs
-      initialRouteName={hasAccount ? 'monitor' : 'settings'}
+      initialRouteName="monitor"
       screenOptions={{
-        headerShown: false,
         tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.tabInactive,
-        tabBarStyle: {
-          backgroundColor: colors.card,
-          borderTopWidth: 0,
-          height: 84,
-          paddingTop: 10,
-          paddingBottom: 18,
-        },
       }}
     >
-      <Tabs.Screen
-        name="index"
-        options={{
-          href: null,
-        }}
-      />
       <Tabs.Screen
         name="monitor"
         options={{
           title: '概览',
-          tabBarIcon: ({ color, size }) => <ChartNoAxesCombined color={color} size={size} />,
+          tabBarIcon: () => ({ sfSymbol: 'chart.line.uptrend.xyaxis' }),
         }}
       />
       <Tabs.Screen
         name="users"
         options={{
           title: '用户',
-          tabBarIcon: ({ color, size }) => <Users color={color} size={size} />,
+          tabBarIcon: () => ({ sfSymbol: 'person.2.fill' }),
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: '服务器',
-          tabBarIcon: ({ color, size }) => <Settings2 color={color} size={size} />,
+          tabBarIcon: () => ({ sfSymbol: 'server.rack' }),
         }}
       />
-      <Tabs.Screen name="groups" options={{ href: null }} />
-      <Tabs.Screen name="accounts" options={{ href: null }} />
+      <Tabs.Screen name="groups" options={{ tabBarItemHidden: true }} />
+      <Tabs.Screen name="accounts" options={{ tabBarItemHidden: true }} />
     </Tabs>
   );
 }

@@ -6,9 +6,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
 import { z } from 'zod';
 
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 import { getAdminSettings, getDashboardStats } from '@/src/services/admin';
 import { queryClient } from '@/src/lib/query-client';
+import { useTabBarInset } from '@/src/lib/use-tab-bar-inset';
 import { adminConfigState, removeAdminAccount, saveAdminConfig, switchAdminAccount, type AdminAccountProfile } from '@/src/store/admin-config';
 
 const { useSnapshot } = require('valtio/react');
@@ -54,11 +55,12 @@ function ServerCard({
   onSelect: () => Promise<void>;
   onDelete: () => Promise<void>;
 }) {
+  const colors = useColors();
   return (
     <Pressable
       onPress={onSelect}
       style={{
-        backgroundColor: active ? colors.primaryBgSoftSoft : colors.card,
+        backgroundColor: active ? colors.successBgSoft : colors.card,
         borderRadius: 18,
         padding: 16,
         borderWidth: 1,
@@ -79,7 +81,7 @@ function ServerCard({
       </View>
 
       <View style={{ flexDirection: 'row', gap: 10, marginTop: 14 }}>
-        <Pressable onPress={onSelect} style={{ flex: 1, backgroundColor: active ? colors.primaryBgSoftSoft : colors.primary, borderRadius: 14, paddingVertical: 11, alignItems: 'center' }}>
+        <Pressable onPress={onSelect} style={{ flex: 1, backgroundColor: active ? colors.successBgSoft : colors.primary, borderRadius: 14, paddingVertical: 11, alignItems: 'center' }}>
           <Text style={{ color: active ? colors.primary : '#ffffff', fontSize: 13, fontWeight: '700' }}>{active ? '已选中' : '切换到此服务器'}</Text>
         </Pressable>
         <Pressable onPress={onDelete} style={{ backgroundColor: colors.border, borderRadius: 14, paddingHorizontal: 16, justifyContent: 'center' }}>
@@ -91,6 +93,8 @@ function ServerCard({
 }
 
 export default function SettingsScreen() {
+  const colors = useColors();
+  const tabBarInset = useTabBarInset();
   const config = useSnapshot(adminConfigState);
   const [showForm, setShowForm] = useState(config.accounts.length === 0);
   const [connectionState, setConnectionState] = useState<ConnectionState>('idle');
@@ -165,7 +169,7 @@ export default function SettingsScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.page }}>
       <ScrollView
         style={{ flex: 1 }}
-        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 110, gap: 14 }}
+        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: tabBarInset + 16, gap: 14 }}
         showsVerticalScrollIndicator={false}
         refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={() => void handleRefresh()} tintColor={colors.primary} />}
       >
@@ -252,7 +256,7 @@ export default function SettingsScreen() {
             ) : null}
 
             {connectionMessage ? (
-              <View style={{ borderRadius: 14, backgroundColor: connectionState === 'success' ? colors.primaryBgSoft : colors.dangerBg, paddingHorizontal: 14, paddingVertical: 12 }}>
+              <View style={{ borderRadius: 14, backgroundColor: connectionState === 'success' ? colors.successBgSoft : colors.dangerBg, paddingHorizontal: 14, paddingVertical: 12 }}>
                 <Text style={{ color: connectionState === 'success' ? colors.primary : colors.danger, fontSize: 14 }}>{connectionMessage}</Text>
               </View>
             ) : null}

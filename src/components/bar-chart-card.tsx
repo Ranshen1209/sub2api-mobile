@@ -2,7 +2,7 @@ import { CircleHelp } from 'lucide-react-native';
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 
 type BarChartItem = {
   label: string;
@@ -25,6 +25,7 @@ export function BarChartCard({
   items,
   formatValue = (value) => `${value}`,
 }: BarChartCardProps) {
+  const colors = useColors();
   const [activeHint, setActiveHint] = useState<string | null>(null);
   const maxValue = Math.max(...items.map((item) => item.value), 1);
 

@@ -5,9 +5,10 @@ import { FlatList, Pressable, RefreshControl, Text, TextInput, View } from 'reac
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useDebouncedValue } from '@/src/hooks/use-debounced-value';
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 import { formatCompactNumber, formatTokenValue } from '@/src/lib/formatters';
 import { queryClient } from '@/src/lib/query-client';
+import { useTabBarInset } from '@/src/lib/use-tab-bar-inset';
 import { getUser, getUsageStats, listUserApiKeys, listUsers } from '@/src/services/admin';
 import { adminConfigState, hasAuthenticatedAdminSession } from '@/src/store/admin-config';
 import type { AdminUser, UsageStats } from '@/src/types/admin';
@@ -90,6 +91,7 @@ function getErrorMessage(error: unknown) {
 }
 
 function MetricTile({ title, value, tone = 'default' }: { title: string; value: string; tone?: 'default' | 'accent' }) {
+  const colors = useColors();
   const backgroundColor = tone === 'accent' ? colors.accentBg : colors.mutedCard;
   const valueColor = tone === 'accent' ? colors.accentText : colors.text;
 
@@ -104,6 +106,7 @@ function MetricTile({ title, value, tone = 'default' }: { title: string; value: 
 }
 
 function UserCard({ user, usage }: { user: AdminUser; usage?: UsageStats }) {
+  const colors = useColors();
   const isAdmin = user.role?.trim().toLowerCase() === 'admin';
   const userNameLabel = getUserNameLabel(user);
   const statusLabel = `${isAdmin ? 'admin · ' : ''}${user.status || 'active'} · ${userNameLabel}`;
@@ -133,6 +136,8 @@ function UserCard({ user, usage }: { user: AdminUser; usage?: UsageStats }) {
 }
 
 export default function UsersScreen() {
+  const colors = useColors();
+  const tabBarInset = useTabBarInset();
   const config = useSnapshot(adminConfigState);
   const hasAccount = hasAuthenticatedAdminSession(config);
   const [searchText, setSearchText] = useState('');
@@ -244,7 +249,7 @@ export default function UsersScreen() {
             keyExtractor={(item) => `${item.id}`}
             showsVerticalScrollIndicator={false}
             refreshControl={<RefreshControl refreshing={usersQuery.isRefetching} onRefresh={() => void usersQuery.refetch()} tintColor={colors.primary} />}
-            contentContainerStyle={{ paddingBottom: 8, gap: 12, flexGrow: users.length === 0 ? 1 : 0 }}
+            contentContainerStyle={{ paddingBottom: tabBarInset + 16, gap: 12, flexGrow: users.length === 0 ? 1 : 0 }}
             ListEmptyComponent={
               <View style={{ backgroundColor: colors.card, borderRadius: 18, padding: 16 }}>
                 <Text style={{ fontSize: 18, fontWeight: '700', color: colors.text }}>暂无用户</Text>

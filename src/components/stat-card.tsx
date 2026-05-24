@@ -2,7 +2,7 @@ import type { LucideIcon } from 'lucide-react-native';
 import { TrendingDown, TrendingUp } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 
 type StatCardProps = {
   label: string;
@@ -13,6 +13,7 @@ type StatCardProps = {
 };
 
 export function StatCard({ label, value, tone = 'light', trend, icon: Icon }: StatCardProps) {
+  const colors = useColors();
   const dark = tone === 'dark';
   const TrendIcon = trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : null;
   const accentColor = dark ? colors.primarySoft : colors.mutedText;

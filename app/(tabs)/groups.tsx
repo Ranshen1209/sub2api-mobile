@@ -6,10 +6,11 @@ import { FlatList, RefreshControl, Text, TextInput, View } from 'react-native';
 import { ListCard } from '@/src/components/list-card';
 import { ScreenShell } from '@/src/components/screen-shell';
 import { useDebouncedValue } from '@/src/hooks/use-debounced-value';
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 import { listGroups } from '@/src/services/admin';
 
 export default function GroupsScreen() {
+  const colors = useColors();
   const [searchText, setSearchText] = useState('');
   const keyword = useDebouncedValue(searchText.trim(), 300);
 

@@ -6,7 +6,7 @@ import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-nativ
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LineTrendChart } from '@/src/components/line-trend-chart';
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 import { getDashboardSnapshot, getUsageStats, getUser, listUserApiKeys, updateUserBalance, updateUserStatus } from '@/src/services/admin';
 import type { AdminApiKey, BalanceOperation } from '@/src/types/admin';
 
@@ -99,6 +99,7 @@ function formatTime(value?: string | null) {
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  const colors = useColors();
   return (
     <View
       style={{
@@ -117,6 +118,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 function GridField({ label, value }: { label: string; value: string }) {
+  const colors = useColors();
   return (
     <View
       style={{
@@ -136,6 +138,7 @@ function GridField({ label, value }: { label: string; value: string }) {
 }
 
 function MetricCard({ label, value }: { label: string; value: string }) {
+  const colors = useColors();
   return (
     <View
       style={{
@@ -155,6 +158,7 @@ function MetricCard({ label, value }: { label: string; value: string }) {
 }
 
 function StatusBadge({ text }: { text: string }) {
+  const colors = useColors();
   const normalized = text.toLowerCase();
   const backgroundColor = normalized === 'active' ? colors.successBgSoft : normalized === 'inactive' || normalized === 'disabled' ? colors.inactiveBgSoft : colors.badgeDangerBg;
   const color = normalized === 'active' ? colors.successText : normalized === 'inactive' || normalized === 'disabled' ? colors.subtext : colors.badgeDangerText;
@@ -167,6 +171,7 @@ function StatusBadge({ text }: { text: string }) {
 }
 
 function CopyInlineButton({ copied, onPress }: { copied: boolean; onPress: () => void }) {
+  const colors = useColors();
   return (
     <Pressable
       onPress={onPress}
@@ -184,6 +189,7 @@ function CopyInlineButton({ copied, onPress }: { copied: boolean; onPress: () =>
 }
 
 function KeyItem({ item, copied, onCopy }: { item: AdminApiKey; copied: boolean; onCopy: () => void }) {
+  const colors = useColors();
   return (
     <View
       style={{
@@ -223,6 +229,7 @@ function KeyItem({ item, copied, onCopy }: { item: AdminApiKey; copied: boolean;
 }
 
 export default function UserDetailScreen() {
+  const colors = useColors();
   const { id } = useLocalSearchParams<{ id: string }>();
   const userId = Number(id);
   const queryClient = useQueryClient();

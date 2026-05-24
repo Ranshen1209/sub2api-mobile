@@ -2,25 +2,28 @@ import type { LucideIcon } from 'lucide-react-native';
 import type { ReactNode } from 'react';
 import { Text, View } from 'react-native';
 
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
+
+type BadgeTone = 'default' | 'success' | 'muted' | 'danger';
 
 type ListCardProps = {
   title: string;
   meta?: string;
   badge?: string;
-  badgeTone?: 'default' | 'success' | 'muted' | 'danger';
+  badgeTone?: BadgeTone;
   children?: ReactNode;
   icon?: LucideIcon;
 };
 
-const badgeStyles: Record<NonNullable<ListCardProps['badgeTone']>, { bg: string; color: string }> = {
-  default: { bg: colors.badgeDefault, color: colors.badgeDefaultText },
-  success: { bg: colors.successBgSoft, color: colors.primary },
-  muted: { bg: colors.badgeMuted, color: colors.mutedText },
-  danger: { bg: colors.badgeDangerBg, color: colors.badgeDangerText },
-};
-
 export function ListCard({ title, meta, badge, badgeTone = 'default', children, icon: Icon }: ListCardProps) {
+  const colors = useColors();
+
+  const badgeStyles: Record<BadgeTone, { bg: string; color: string }> = {
+    default: { bg: colors.badgeDefault, color: colors.badgeDefaultText },
+    success: { bg: colors.successBgSoft, color: colors.primary },
+    muted: { bg: colors.badgeMuted, color: colors.mutedText },
+    danger: { bg: colors.badgeDangerBg, color: colors.badgeDangerText },
+  };
   const badgeStyle = badgeStyles[badgeTone];
 
   return (

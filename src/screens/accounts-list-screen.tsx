@@ -7,7 +7,7 @@ import type { Edge } from 'react-native-safe-area-context';
 import { ListCard } from '@/src/components/list-card';
 import { ScreenShell } from '@/src/components/screen-shell';
 import { useDebouncedValue } from '@/src/hooks/use-debounced-value';
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 import { formatTokenValue } from '@/src/lib/formatters';
 import { getAccountTodayStats, listAccounts, setAccountSchedulable, testAccount } from '@/src/services/admin';
 import type { AdminAccount } from '@/src/types/admin';
@@ -52,9 +52,11 @@ function getAccountVisualStatus(account: AdminAccount): AccountVisualStatus {
 
 type AccountsListScreenProps = {
   safeAreaEdges?: Edge[];
+  withTabBar?: boolean;
 };
 
-export function AccountsListScreen({ safeAreaEdges }: AccountsListScreenProps) {
+export function AccountsListScreen({ safeAreaEdges, withTabBar = true }: AccountsListScreenProps) {
+  const colors = useColors();
   const [searchText, setSearchText] = useState('');
   const [filter, setFilter] = useState<AccountStatusFilter>('all');
   const [usageSort, setUsageSort] = useState<UsageSort>('usage-desc');
@@ -345,7 +347,7 @@ export function AccountsListScreen({ safeAreaEdges }: AccountsListScreenProps) {
       variant="minimal"
       scroll={false}
       safeAreaEdges={safeAreaEdges}
-      bottomInsetClassName="pb-6"
+      withTabBar={withTabBar}
       contentGapClassName="mt-2 gap-2"
     >
       <FlatList

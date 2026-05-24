@@ -7,8 +7,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { BarChartCard } from '@/src/components/bar-chart-card';
 import { DonutChartCard } from '@/src/components/donut-chart-card';
 import { LineTrendChart } from '@/src/components/line-trend-chart';
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 import { formatTokenValue } from '@/src/lib/formatters';
+import { useTabBarInset } from '@/src/lib/use-tab-bar-inset';
 import { getAdminSettings, getDashboardModels, getDashboardStats, getDashboardTrend, listAccounts } from '@/src/services/admin';
 import { adminConfigState, hasAuthenticatedAdminSession } from '@/src/store/admin-config';
 
@@ -129,6 +130,7 @@ function getErrorMessage(error: unknown) {
 }
 
 function Section({ title, subtitle, children, right }: { title: string; subtitle?: string; children: React.ReactNode; right?: React.ReactNode }) {
+  const colors = useColors();
   return (
     <View style={{ backgroundColor: colors.card, borderRadius: 18, padding: 16 }}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12 }}>
@@ -144,6 +146,7 @@ function Section({ title, subtitle, children, right }: { title: string; subtitle
 }
 
 function StatCard({ title, value, detail }: { title: string; value: string; detail?: string }) {
+  const colors = useColors();
   return (
     <View style={{ flex: 1, backgroundColor: colors.card, borderRadius: 16, padding: 14 }}>
       <Text style={{ fontSize: 12, color: colors.faintText }}>{title}</Text>
@@ -154,6 +157,8 @@ function StatCard({ title, value, detail }: { title: string; value: string; deta
 }
 
 export default function MonitorScreen() {
+  const colors = useColors();
+  const tabBarInset = useTabBarInset();
   const config = useSnapshot(adminConfigState);
   const hasAccount = hasAuthenticatedAdminSession(config);
   const [rangeKey, setRangeKey] = useState<RangeKey>('7d');
@@ -245,7 +250,7 @@ export default function MonitorScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.page }}>
       <ScrollView
         style={{ flex: 1 }}
-        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 110 }}
+        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: tabBarInset + 16 }}
         showsVerticalScrollIndicator={false}
         refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={() => void refetchAll()} tintColor={colors.primary} />}
       >

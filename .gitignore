@@ -71,4 +71,7 @@ skills-lock.json
 # generated native folders
 /ios
 /android
+
+# native build outputs (Xcode archive / IPA / dSYM)
+/build
 CLAUDE.md

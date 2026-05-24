@@ -1,4 +1,6 @@
-export const colors = {
+import { useColorScheme } from 'react-native';
+
+const lightColors = {
   primary: '#9181bd',
   primaryDark: '#7a6aac',
   primarySoft: '#c8bee0',
@@ -43,4 +45,60 @@ export const colors = {
   tabInactive: '#8a82a0',
 } as const;
 
-export type ColorToken = keyof typeof colors;
+const darkColors = {
+  primary: '#a896c8',
+  primaryDark: '#8a78b6',
+  primarySoft: '#3f3553',
+
+  page: '#14101c',
+  card: '#1d1828',
+  mutedCard: '#2a2336',
+
+  text: '#f0ecf8',
+  textStrong: '#e6e0f3',
+  subtext: '#b1aac4',
+  mutedText: '#8c869b',
+  faintText: '#6e687f',
+  placeholder: '#6e687f',
+
+  accentBg: '#322746',
+  accentText: '#c8b4f0',
+  inactiveBadge: '#3a3548',
+
+  border: '#2e2840',
+  borderSoft: '#251f33',
+  barTrack: '#2e2840',
+
+  badgeDefault: '#2a2336',
+  badgeDefaultText: '#b1aac4',
+  badgeMuted: '#251f33',
+  badgeDangerBg: '#3a2418',
+  badgeDangerText: '#e09870',
+  successText: '#7fa8d8',
+  successBgSoft: '#2c2640',
+  inactiveBgSoft: '#251f33',
+  disabledButton: '#3a3548',
+  loadingButton: '#4a4258',
+  dangerButton: '#7a3d20',
+  dangerButtonText: '#e09870',
+  darkButton: '#0c0a14',
+
+  danger: '#d97a52',
+  dangerBg: '#3a2418',
+  warning: '#d4a85a',
+
+  tabInactive: '#6e687f',
+} as const;
+
+export type ColorPalette = { [K in keyof typeof lightColors]: string };
+export type ColorToken = keyof ColorPalette;
+
+const darkPalette: ColorPalette = darkColors;
+const lightPalette: ColorPalette = lightColors;
+
+export const colors: ColorPalette = lightPalette;
+
+export function useColors(): ColorPalette {
+  const scheme = useColorScheme();
+  return scheme === 'dark' ? darkPalette : lightPalette;
+}

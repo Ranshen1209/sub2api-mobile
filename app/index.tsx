@@ -4,7 +4,7 @@ import { adminConfigState, hasAuthenticatedAdminSession } from '@/src/store/admi
 
 const { useSnapshot } = require('valtio/react');
 
-export default function IndexScreen() {
+export default function RootIndex() {
   const config = useSnapshot(adminConfigState);
   const hasAccount = hasAuthenticatedAdminSession(config);
 

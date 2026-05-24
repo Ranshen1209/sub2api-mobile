@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Text, View } from 'react-native';
 import Svg, { Defs, LinearGradient, Path, Stop } from 'react-native-svg';
 
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 
 type Point = {
   label: string;
@@ -20,12 +20,14 @@ type LineTrendChartProps = {
 
 export function LineTrendChart({
   points,
-  color = colors.primary,
+  color,
   title,
   subtitle,
   formatValue = (value) => `${value}`,
   compact = false,
 }: LineTrendChartProps) {
+  const colors = useColors();
+  const strokeColor = color ?? colors.primary;
   const width = 320;
   const height = compact ? 104 : 144;
   const maxValue = Math.max(...points.map((point) => point.value), 1);
@@ -66,12 +68,12 @@ export function LineTrendChart({
         <Svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`}>
           <Defs>
             <LinearGradient id={gradientId} x1="0" x2="0" y1="0" y2="1">
-              <Stop offset="0%" stopColor={color} stopOpacity="0.28" />
-              <Stop offset="100%" stopColor={color} stopOpacity="0.02" />
+              <Stop offset="0%" stopColor={strokeColor} stopOpacity="0.28" />
+              <Stop offset="100%" stopColor={strokeColor} stopOpacity="0.02" />
             </LinearGradient>
           </Defs>
           <Path d={area} fill={`url(#${gradientId})`} />
-          <Path d={line} fill="none" stroke={color} strokeWidth="3" strokeLinejoin="round" strokeLinecap="round" />
+          <Path d={line} fill="none" stroke={strokeColor} strokeWidth="3" strokeLinejoin="round" strokeLinecap="round" />
         </Svg>
 
         <View className="mt-2 flex-row justify-between">

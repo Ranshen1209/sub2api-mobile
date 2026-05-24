@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 
 type DetailRowProps = {
   label: string;
@@ -8,6 +8,7 @@ type DetailRowProps = {
 };
 
 export function DetailRow({ label, value }: DetailRowProps) {
+  const colors = useColors();
   return (
     <View
       className="flex-row items-start justify-between gap-4 border-b py-3 last:border-b-0"

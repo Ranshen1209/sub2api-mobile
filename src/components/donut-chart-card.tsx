@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
-import { colors } from '@/src/lib/colors';
+import { useColors } from '@/src/lib/colors';
 
 type DonutSegment = {
   label: string;
@@ -24,6 +24,7 @@ export function DonutChartCard({
   centerLabel,
   centerValue,
 }: DonutChartCardProps) {
+  const colors = useColors();
   const total = Math.max(
     segments.reduce((sum, segment) => sum + segment.value, 0),
     1
