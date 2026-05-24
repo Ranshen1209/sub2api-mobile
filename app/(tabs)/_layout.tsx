@@ -1,6 +1,7 @@
 import { Redirect, Tabs } from 'expo-router';
 import { ChartNoAxesCombined, Settings2, Users } from 'lucide-react-native';
 
+import { colors } from '@/src/lib/colors';
 import { adminConfigState, hasAuthenticatedAdminSession } from '@/src/store/admin-config';
 
 const { useSnapshot } = require('valtio/react');
@@ -18,10 +19,10 @@ export default function TabsLayout() {
       initialRouteName={hasAccount ? 'monitor' : 'settings'}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#1d5f55',
-        tabBarInactiveTintColor: '#8a8072',
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.tabInactive,
         tabBarStyle: {
-          backgroundColor: '#fbf8f2',
+          backgroundColor: colors.card,
           borderTopWidth: 0,
           height: 84,
           paddingTop: 10,

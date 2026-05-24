@@ -6,21 +6,9 @@ import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-nativ
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LineTrendChart } from '@/src/components/line-trend-chart';
+import { colors } from '@/src/lib/colors';
 import { getDashboardSnapshot, getUsageStats, getUser, listUserApiKeys, updateUserBalance, updateUserStatus } from '@/src/services/admin';
 import type { AdminApiKey, BalanceOperation } from '@/src/types/admin';
-
-const colors = {
-  page: '#f4efe4',
-  card: '#fbf8f2',
-  text: '#16181a',
-  subtext: '#6f665c',
-  border: '#e7dfcf',
-  primary: '#1d5f55',
-  dark: '#1b1d1f',
-  errorBg: '#f7e1d6',
-  errorText: '#a4512b',
-  muted: '#f7f1e6',
-};
 
 type RangeKey = '24h' | '7d' | '30d';
 
@@ -67,12 +55,12 @@ function getErrorMessage(error: unknown) {
 }
 
 function formatMoney(value?: number | null) {
-  return `$${Number(value ?? 0).toFixed(2)}`;
+  return `￥${Number(value ?? 0).toFixed(2)}`;
 }
 
 function formatUsageCost(stats?: { total_account_cost?: number | null; total_actual_cost?: number | null; total_cost?: number | null }) {
   const value = Number(stats?.total_account_cost ?? stats?.total_actual_cost ?? stats?.total_cost ?? 0);
-  return `$${value.toFixed(4)}`;
+  return `￥${value.toFixed(4)}`;
 }
 
 function formatTokenValue(value?: number | null) {
@@ -133,7 +121,7 @@ function GridField({ label, value }: { label: string; value: string }) {
     <View
       style={{
         width: '48.5%',
-        backgroundColor: colors.muted,
+        backgroundColor: colors.mutedCard,
         borderRadius: 12,
         paddingHorizontal: 12,
         paddingVertical: 12,
@@ -152,7 +140,7 @@ function MetricCard({ label, value }: { label: string; value: string }) {
     <View
       style={{
         flex: 1,
-        backgroundColor: colors.muted,
+        backgroundColor: colors.mutedCard,
         borderRadius: 12,
         paddingHorizontal: 12,
         paddingVertical: 12,
@@ -168,8 +156,8 @@ function MetricCard({ label, value }: { label: string; value: string }) {
 
 function StatusBadge({ text }: { text: string }) {
   const normalized = text.toLowerCase();
-  const backgroundColor = normalized === 'active' ? '#dff4ea' : normalized === 'inactive' || normalized === 'disabled' ? '#ece5da' : '#f7e1d6';
-  const color = normalized === 'active' ? '#17663f' : normalized === 'inactive' || normalized === 'disabled' ? '#6f665c' : '#a4512b';
+  const backgroundColor = normalized === 'active' ? colors.successBgSoft : normalized === 'inactive' || normalized === 'disabled' ? colors.inactiveBgSoft : colors.badgeDangerBg;
+  const color = normalized === 'active' ? colors.successText : normalized === 'inactive' || normalized === 'disabled' ? colors.subtext : colors.badgeDangerText;
 
   return (
     <View style={{ backgroundColor, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6 }}>
@@ -184,13 +172,13 @@ function CopyInlineButton({ copied, onPress }: { copied: boolean; onPress: () =>
       onPress={onPress}
       style={{
         marginLeft: 8,
-        backgroundColor: copied ? '#dff4ea' : '#e7dfcf',
+        backgroundColor: copied ? colors.successBgSoft : colors.borderSoft,
         borderRadius: 999,
         paddingHorizontal: 10,
         paddingVertical: 6,
       }}
     >
-      <Text style={{ fontSize: 11, fontWeight: '700', color: copied ? '#17663f' : '#4e463e' }}>{copied ? '已复制' : '复制'}</Text>
+      <Text style={{ fontSize: 11, fontWeight: '700', color: copied ? colors.successText : colors.textStrong }}>{copied ? '已复制' : '复制'}</Text>
     </Pressable>
   );
 }
@@ -199,7 +187,7 @@ function KeyItem({ item, copied, onCopy }: { item: AdminApiKey; copied: boolean;
   return (
     <View
       style={{
-        backgroundColor: colors.muted,
+        backgroundColor: colors.mutedCard,
         borderRadius: 14,
         padding: 12,
         borderWidth: 1,
@@ -386,9 +374,9 @@ export default function UserDetailScreen() {
 
           {userQuery.error ? (
             <Section title="状态">
-              <View style={{ backgroundColor: colors.errorBg, borderRadius: 12, padding: 12 }}>
-                <Text style={{ color: colors.errorText, fontWeight: '700' }}>用户信息加载失败</Text>
-                <Text style={{ marginTop: 6, color: colors.errorText }}>{getErrorMessage(userQuery.error)}</Text>
+              <View style={{ backgroundColor: colors.dangerBg, borderRadius: 12, padding: 12 }}>
+                <Text style={{ color: colors.danger, fontWeight: '700' }}>用户信息加载失败</Text>
+                <Text style={{ marginTop: 6, color: colors.danger }}>{getErrorMessage(userQuery.error)}</Text>
               </View>
             </Section>
           ) : null}
@@ -431,14 +419,14 @@ export default function UserDetailScreen() {
                   disabled={statusMutation.isPending || user.role?.toLowerCase() === 'admin'}
                   onPress={handleToggleUserStatus}
                   style={{
-                    backgroundColor: user.status === 'disabled' ? colors.primary : '#8b3f1f',
+                    backgroundColor: user.status === 'disabled' ? colors.primary : colors.dangerButton,
                     borderRadius: 10,
                     paddingHorizontal: 12,
                     paddingVertical: 10,
                     opacity: statusMutation.isPending || user.role?.toLowerCase() === 'admin' ? 0.6 : 1,
                   }}
                 >
-                  <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>
+                  <Text style={{ color: '#ffffff', fontSize: 12, fontWeight: '700' }}>
                     {statusMutation.isPending ? '处理中...' : user.status === 'disabled' ? '启用用户' : '禁用用户'}
                   </Text>
                 </Pressable>
@@ -447,8 +435,8 @@ export default function UserDetailScreen() {
               {user.role?.toLowerCase() === 'admin' ? <Text style={{ marginTop: 8, fontSize: 12, color: colors.subtext }}>管理员用户不支持禁用。</Text> : null}
 
               {statusError ? (
-                <View style={{ marginTop: 10, backgroundColor: colors.errorBg, borderRadius: 12, padding: 12 }}>
-                  <Text style={{ color: colors.errorText }}>{statusError}</Text>
+                <View style={{ marginTop: 10, backgroundColor: colors.dangerBg, borderRadius: 12, padding: 12 }}>
+                  <Text style={{ color: colors.danger }}>{statusError}</Text>
                 </View>
               ) : null}
             </Section>
@@ -463,7 +451,7 @@ export default function UserDetailScreen() {
                     key={item.key}
                     onPress={() => setRangeKey(item.key)}
                     style={{
-                      backgroundColor: active ? colors.primary : colors.muted,
+                      backgroundColor: active ? colors.primary : colors.mutedCard,
                       borderRadius: 999,
                       paddingHorizontal: 12,
                       paddingVertical: 8,
@@ -471,7 +459,7 @@ export default function UserDetailScreen() {
                       borderColor: active ? colors.primary : colors.border,
                     }}
                   >
-                    <Text style={{ color: active ? '#fff' : colors.text, fontSize: 12, fontWeight: '700' }}>{item.label}</Text>
+                    <Text style={{ color: active ? '#ffffff' : colors.text, fontSize: 12, fontWeight: '700' }}>{item.label}</Text>
                   </Pressable>
                 );
               })}
@@ -492,9 +480,9 @@ export default function UserDetailScreen() {
             {usageStatsQuery.isLoading ? <Text style={{ marginTop: 12, color: colors.subtext }}>正在加载用量统计...</Text> : null}
 
             {usageStatsQuery.error ? (
-              <View style={{ marginTop: 12, backgroundColor: colors.errorBg, borderRadius: 12, padding: 12 }}>
-                <Text style={{ color: colors.errorText, fontWeight: '700' }}>用量统计加载失败</Text>
-                <Text style={{ marginTop: 6, color: colors.errorText }}>{getErrorMessage(usageStatsQuery.error)}</Text>
+              <View style={{ marginTop: 12, backgroundColor: colors.dangerBg, borderRadius: 12, padding: 12 }}>
+                <Text style={{ color: colors.danger, fontWeight: '700' }}>用量统计加载失败</Text>
+                <Text style={{ marginTop: 6, color: colors.danger }}>{getErrorMessage(usageStatsQuery.error)}</Text>
               </View>
             ) : null}
 
@@ -504,7 +492,7 @@ export default function UserDetailScreen() {
                   title="用量趋势"
                   subtitle={`${range.start_date} 到 ${range.end_date}`}
                   points={trendPoints}
-                  color="#1d5f55"
+                  color={colors.primary}
                   formatValue={(value) => formatTokenValue(value)}
                   compact
                 />
@@ -514,9 +502,9 @@ export default function UserDetailScreen() {
             {usageSnapshotQuery.isLoading ? <Text style={{ marginTop: 12, color: colors.subtext }}>正在加载趋势图...</Text> : null}
 
             {usageSnapshotQuery.error ? (
-              <View style={{ marginTop: 12, backgroundColor: colors.errorBg, borderRadius: 12, padding: 12 }}>
-                <Text style={{ color: colors.errorText, fontWeight: '700' }}>趋势加载失败</Text>
-                <Text style={{ marginTop: 6, color: colors.errorText }}>{getErrorMessage(usageSnapshotQuery.error)}</Text>
+              <View style={{ marginTop: 12, backgroundColor: colors.dangerBg, borderRadius: 12, padding: 12 }}>
+                <Text style={{ color: colors.danger, fontWeight: '700' }}>趋势加载失败</Text>
+                <Text style={{ marginTop: 6, color: colors.danger }}>{getErrorMessage(usageSnapshotQuery.error)}</Text>
               </View>
             ) : null}
           </Section>
@@ -526,9 +514,9 @@ export default function UserDetailScreen() {
               value={searchText}
               onChangeText={setSearchText}
               placeholder="搜索名称 / Key / 分组"
-              placeholderTextColor="#9a9082"
+              placeholderTextColor={colors.placeholder}
               style={{
-                backgroundColor: colors.muted,
+                backgroundColor: colors.mutedCard,
                 borderWidth: 1,
                 borderColor: colors.border,
                 borderRadius: 12,
@@ -542,9 +530,9 @@ export default function UserDetailScreen() {
             {apiKeysQuery.isLoading ? <Text style={{ color: colors.subtext }}>正在加载 API Keys...</Text> : null}
 
             {apiKeysQuery.error ? (
-              <View style={{ backgroundColor: colors.errorBg, borderRadius: 12, padding: 12 }}>
-                <Text style={{ color: colors.errorText, fontWeight: '700' }}>API Keys 加载失败</Text>
-                <Text style={{ marginTop: 6, color: colors.errorText }}>{getErrorMessage(apiKeysQuery.error)}</Text>
+              <View style={{ backgroundColor: colors.dangerBg, borderRadius: 12, padding: 12 }}>
+                <Text style={{ color: colors.danger, fontWeight: '700' }}>API Keys 加载失败</Text>
+                <Text style={{ marginTop: 6, color: colors.danger }}>{getErrorMessage(apiKeysQuery.error)}</Text>
               </View>
             ) : null}
 
@@ -575,7 +563,7 @@ export default function UserDetailScreen() {
                     onPress={() => setOperation(item.value)}
                     style={{
                       flex: 1,
-                      backgroundColor: active ? colors.primary : colors.muted,
+                      backgroundColor: active ? colors.primary : colors.mutedCard,
                       borderRadius: 12,
                       paddingVertical: 12,
                       alignItems: 'center',
@@ -583,7 +571,7 @@ export default function UserDetailScreen() {
                       borderColor: active ? colors.primary : colors.border,
                     }}
                   >
-                    <Text style={{ color: active ? '#fff' : colors.text, fontWeight: '700' }}>{item.label}</Text>
+                    <Text style={{ color: active ? '#ffffff' : colors.text, fontWeight: '700' }}>{item.label}</Text>
                   </Pressable>
                 );
               })}
@@ -593,10 +581,10 @@ export default function UserDetailScreen() {
               value={amount}
               onChangeText={setAmount}
               placeholder="输入金额，例如 10"
-              placeholderTextColor="#9a9082"
+              placeholderTextColor={colors.placeholder}
               keyboardType="decimal-pad"
               style={{
-                backgroundColor: colors.muted,
+                backgroundColor: colors.mutedCard,
                 borderWidth: 1,
                 borderColor: colors.border,
                 borderRadius: 12,
@@ -611,9 +599,9 @@ export default function UserDetailScreen() {
               value={notes}
               onChangeText={setNotes}
               placeholder="备注（可选）"
-              placeholderTextColor="#9a9082"
+              placeholderTextColor={colors.placeholder}
               style={{
-                backgroundColor: colors.muted,
+                backgroundColor: colors.mutedCard,
                 borderWidth: 1,
                 borderColor: colors.border,
                 borderRadius: 12,
@@ -625,13 +613,13 @@ export default function UserDetailScreen() {
             />
 
             {formError ? (
-              <View style={{ backgroundColor: colors.errorBg, borderRadius: 12, padding: 12, marginBottom: 10 }}>
-                <Text style={{ color: colors.errorText }}>{formError}</Text>
+              <View style={{ backgroundColor: colors.dangerBg, borderRadius: 12, padding: 12, marginBottom: 10 }}>
+                <Text style={{ color: colors.danger }}>{formError}</Text>
               </View>
             ) : null}
 
-            <Pressable onPress={submitBalance} style={{ backgroundColor: colors.dark, borderRadius: 12, paddingVertical: 14, alignItems: 'center' }}>
-              <Text style={{ color: '#fff', fontWeight: '700' }}>{balanceMutation.isPending ? '提交中...' : '确认提交'}</Text>
+            <Pressable onPress={submitBalance} style={{ backgroundColor: colors.darkButton, borderRadius: 12, paddingVertical: 14, alignItems: 'center' }}>
+              <Text style={{ color: '#ffffff', fontWeight: '700' }}>{balanceMutation.isPending ? '提交中...' : '确认提交'}</Text>
             </Pressable>
           </Section>
         </ScrollView>

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { z } from 'zod';
 
+import { colors } from '@/src/lib/colors';
 import { getAdminSettings, getDashboardStats } from '@/src/services/admin';
 import { queryClient } from '@/src/lib/query-client';
 import { adminConfigState, hasAuthenticatedAdminSession, saveAdminConfig } from '@/src/store/admin-config';
@@ -24,18 +25,6 @@ const schema = z
 
 type FormValues = z.infer<typeof schema>;
 type ConnectionState = 'idle' | 'checking' | 'error';
-
-const colors = {
-  page: '#f4efe4',
-  card: '#fbf8f2',
-  mutedCard: '#f1ece2',
-  primary: '#1d5f55',
-  text: '#16181a',
-  subtext: '#6f665c',
-  border: '#e7dfcf',
-  dangerBg: '#fbf1eb',
-  danger: '#c25d35',
-};
 
 function getConnectionErrorMessage(error: unknown) {
   if (error instanceof Error && error.message) {
@@ -77,9 +66,9 @@ export default function LoginScreen() {
       <ScrollView contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingVertical: 24 }} keyboardShouldPersistTaps="handled">
         <View style={{ flex: 1, justifyContent: 'center', gap: 20 }}>
           <View style={{ gap: 8 }}>
-            <Text style={{ fontSize: 34, fontWeight: '800', color: colors.text }}>管理员入口</Text>
+            <Text style={{ fontSize: 34, fontWeight: '800', color: colors.text }}>Sakrylle Admin</Text>
             <Text style={{ fontSize: 14, lineHeight: 22, color: colors.subtext }}>
-              首次进入请填写服务器地址和 Admin Key。连接成功后即可进入应用，并在“服务器”页管理多个服务器。
+              首次进入请填写服务器地址和 Admin Key。连接 api.sakrylle.com 或自托管的 sub2api 实例。
             </Text>
           </View>
 
@@ -99,8 +88,8 @@ export default function LoginScreen() {
                       }
                       onChange(text);
                     }}
-                    placeholder="例如：https://api.example.com"
-                    placeholderTextColor="#9b9081"
+                    placeholder="https://api.sakrylle.com"
+                    placeholderTextColor={colors.placeholder}
                     autoCapitalize="none"
                     autoCorrect={false}
                     style={{ backgroundColor: colors.mutedCard, borderRadius: 16, paddingHorizontal: 16, paddingVertical: 14, fontSize: 16, color: colors.text }}
@@ -126,7 +115,7 @@ export default function LoginScreen() {
                         onChange(text);
                       }}
                       placeholder="admin-xxxxxxxx"
-                      placeholderTextColor="#9b9081"
+                      placeholderTextColor={colors.placeholder}
                       autoCapitalize="none"
                       autoCorrect={false}
                       secureTextEntry={!showAdminKey}
@@ -144,7 +133,7 @@ export default function LoginScreen() {
                       onPress={() => setShowAdminKey((value) => !value)}
                       style={{ backgroundColor: colors.border, borderRadius: 12, paddingHorizontal: 12, paddingVertical: 10 }}
                     >
-                      <Text style={{ fontSize: 12, fontWeight: '700', color: '#4e463e' }}>{showAdminKey ? '隐藏' : '显示'}</Text>
+                      <Text style={{ fontSize: 12, fontWeight: '700', color: colors.textStrong }}>{showAdminKey ? '隐藏' : '显示'}</Text>
                     </Pressable>
                   </View>
                 )}
@@ -164,7 +153,7 @@ export default function LoginScreen() {
             ) : null}
 
             <Pressable
-              style={{ backgroundColor: connectionState === 'checking' ? '#7ca89f' : colors.primary, borderRadius: 18, paddingVertical: 15, alignItems: 'center' }}
+              style={{ backgroundColor: connectionState === 'checking' ? colors.loadingButton : colors.primary, borderRadius: 18, paddingVertical: 15, alignItems: 'center' }}
               disabled={connectionState === 'checking'}
               onPress={handleSubmit(async (values) => {
                 setConnectionState('checking');
@@ -182,7 +171,7 @@ export default function LoginScreen() {
                 }
               })}
             >
-              <Text style={{ color: '#fff', fontSize: 15, fontWeight: '700' }}>{connectionState === 'checking' ? '连接中...' : '进入应用'}</Text>
+              <Text style={{ color: '#ffffff', fontSize: 15, fontWeight: '700' }}>{connectionState === 'checking' ? '连接中...' : '进入应用'}</Text>
             </Pressable>
           </View>
         </View>

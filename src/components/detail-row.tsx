@@ -1,5 +1,7 @@
 import { Text, View } from 'react-native';
 
+import { colors } from '@/src/lib/colors';
+
 type DetailRowProps = {
   label: string;
   value: string;
@@ -7,9 +9,12 @@ type DetailRowProps = {
 
 export function DetailRow({ label, value }: DetailRowProps) {
   return (
-    <View className="flex-row items-start justify-between gap-4 border-b border-[#eee6d7] py-3 last:border-b-0">
-      <Text className="text-sm text-[#7d7468]">{label}</Text>
-      <Text className="max-w-[62%] text-right text-sm font-medium text-[#16181a]">{value}</Text>
+    <View
+      className="flex-row items-start justify-between gap-4 border-b py-3 last:border-b-0"
+      style={{ borderBottomColor: colors.borderSoft }}
+    >
+      <Text className="text-sm" style={{ color: colors.mutedText }}>{label}</Text>
+      <Text className="max-w-[62%] text-right text-sm font-medium" style={{ color: colors.text }}>{value}</Text>
     </View>
   );
 }

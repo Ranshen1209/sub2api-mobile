@@ -5,6 +5,7 @@ import { FlatList, Pressable, RefreshControl, Text, TextInput, View } from 'reac
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useDebouncedValue } from '@/src/hooks/use-debounced-value';
+import { colors } from '@/src/lib/colors';
 import { formatCompactNumber, formatTokenValue } from '@/src/lib/formatters';
 import { queryClient } from '@/src/lib/query-client';
 import { getUser, getUsageStats, listUserApiKeys, listUsers } from '@/src/services/admin';
@@ -12,19 +13,6 @@ import { adminConfigState, hasAuthenticatedAdminSession } from '@/src/store/admi
 import type { AdminUser, UsageStats } from '@/src/types/admin';
 
 const { useSnapshot } = require('valtio/react');
-
-const colors = {
-  page: '#f4efe4',
-  card: '#fbf8f2',
-  mutedCard: '#f1ece2',
-  primary: '#1d5f55',
-  text: '#16181a',
-  subtext: '#6f665c',
-  dangerBg: '#fbf1eb',
-  danger: '#c25d35',
-  accentBg: '#efe4cf',
-  accentText: '#8c5a22',
-};
 
 type SortOrder = 'desc' | 'asc';
 type RangeKey = '24h' | '7d' | '30d';
@@ -51,8 +39,8 @@ function getDateRange(rangeKey: RangeKey) {
 }
 
 function formatCost(value?: number) {
-  if (typeof value !== 'number' || Number.isNaN(value)) return '$0.00';
-  return `$${value.toFixed(2)}`;
+  if (typeof value !== 'number' || Number.isNaN(value)) return '￥0.00';
+  return `￥${value.toFixed(2)}`;
 }
 
 function formatActivityTime(value?: string) {
@@ -130,8 +118,8 @@ function UserCard({ user, usage }: { user: AdminUser; usage?: UsageStats }) {
           <Text numberOfLines={1} style={{ fontSize: 16, fontWeight: '800', color: colors.text }}>{user.email}</Text>
           <Text style={{ marginTop: 4, fontSize: 12, color: colors.subtext }}>最近使用 {formatActivityTime(user.last_used_at || user.updated_at || user.created_at)}</Text>
         </View>
-        <View style={{ alignSelf: 'flex-start', backgroundColor: user.status === 'inactive' || user.status === 'disabled' ? '#cfc5b7' : colors.primary, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6 }}>
-          <Text style={{ fontSize: 10, fontWeight: '700', color: '#fff' }}>{statusLabel}</Text>
+        <View style={{ alignSelf: 'flex-start', backgroundColor: user.status === 'inactive' || user.status === 'disabled' ? colors.inactiveBadge : colors.primary, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6 }}>
+          <Text style={{ fontSize: 10, fontWeight: '700', color: '#ffffff' }}>{statusLabel}</Text>
         </View>
       </View>
 
@@ -190,7 +178,7 @@ export default function UsersScreen() {
         <View style={{ marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 28, fontWeight: '700', color: colors.text }}>用户</Text>
-            <Text style={{ marginTop: 4, fontSize: 12, color: '#8a8072' }}>查看用户列表并进入详情页管理账号。</Text>
+            <Text style={{ marginTop: 4, fontSize: 12, color: colors.faintText }}>查看用户列表并进入详情页管理账号。</Text>
           </View>
           <Pressable
             onPress={() => router.push('/users/create-user')}
@@ -203,7 +191,7 @@ export default function UsersScreen() {
               justifyContent: 'center',
             }}
           >
-            <Text style={{ color: '#fff', fontSize: 24, lineHeight: 24, fontWeight: '500' }}>+</Text>
+            <Text style={{ color: '#ffffff', fontSize: 24, lineHeight: 24, fontWeight: '500' }}>+</Text>
           </Pressable>
         </View>
 
@@ -213,7 +201,7 @@ export default function UsersScreen() {
               value={searchText}
               onChangeText={setSearchText}
               placeholder="搜索邮箱、用户名或备注"
-              placeholderTextColor="#9b9081"
+              placeholderTextColor={colors.placeholder}
               style={{ backgroundColor: colors.mutedCard, borderRadius: 14, paddingHorizontal: 14, paddingVertical: 11, fontSize: 15, color: colors.text }}
             />
           </View>
@@ -234,7 +222,7 @@ export default function UsersScreen() {
               style={{ marginTop: 14, alignSelf: 'flex-start', backgroundColor: colors.primary, borderRadius: 14, paddingHorizontal: 16, paddingVertical: 12 }}
               onPress={() => router.push('/settings')}
             >
-              <Text style={{ color: '#fff', fontSize: 13, fontWeight: '700' }}>去配置服务器</Text>
+              <Text style={{ color: '#ffffff', fontSize: 13, fontWeight: '700' }}>去配置服务器</Text>
             </Pressable>
           </View>
         ) : usersQuery.isLoading ? (
@@ -255,7 +243,7 @@ export default function UsersScreen() {
             data={users}
             keyExtractor={(item) => `${item.id}`}
             showsVerticalScrollIndicator={false}
-            refreshControl={<RefreshControl refreshing={usersQuery.isRefetching} onRefresh={() => void usersQuery.refetch()} tintColor="#1d5f55" />}
+            refreshControl={<RefreshControl refreshing={usersQuery.isRefetching} onRefresh={() => void usersQuery.refetch()} tintColor={colors.primary} />}
             contentContainerStyle={{ paddingBottom: 8, gap: 12, flexGrow: users.length === 0 ? 1 : 0 }}
             ListEmptyComponent={
               <View style={{ backgroundColor: colors.card, borderRadius: 18, padding: 16 }}>

@@ -7,6 +7,7 @@ import type { Edge } from 'react-native-safe-area-context';
 import { ListCard } from '@/src/components/list-card';
 import { ScreenShell } from '@/src/components/screen-shell';
 import { useDebouncedValue } from '@/src/hooks/use-debounced-value';
+import { colors } from '@/src/lib/colors';
 import { formatTokenValue } from '@/src/lib/formatters';
 import { getAccountTodayStats, listAccounts, setAccountSchedulable, testAccount } from '@/src/services/admin';
 import type { AdminAccount } from '@/src/types/admin';
@@ -138,15 +139,16 @@ export function AccountsListScreen({ safeAreaEdges }: AccountsListScreenProps) {
   const listHeader = useMemo(
     () => (
       <View className="pb-2">
-        <View className="rounded-[24px] bg-[#fbf8f2] p-2.5">
-          <View className="flex-row items-center rounded-[18px] bg-[#f1ece2] px-4 py-3">
-            <Search color="#7d7468" size={18} />
+        <View className="rounded-[24px] p-2.5" style={{ backgroundColor: colors.card }}>
+          <View className="flex-row items-center rounded-[18px] px-4 py-3" style={{ backgroundColor: colors.mutedCard }}>
+            <Search color={colors.mutedText} size={18} />
             <TextInput
               defaultValue=""
               onChangeText={setSearchText}
               placeholder="搜索账号名称 / 平台"
-              placeholderTextColor="#9b9081"
-              className="ml-3 flex-1 text-base text-[#16181a]"
+              placeholderTextColor={colors.placeholder}
+              className="ml-3 flex-1 text-base"
+              style={{ color: colors.text }}
             />
           </View>
 
@@ -162,9 +164,15 @@ export function AccountsListScreen({ safeAreaEdges }: AccountsListScreenProps) {
                 <Pressable
                   key={key}
                   onPress={() => setFilter(key)}
-                  className={active ? 'rounded-full bg-[#1d5f55] px-3 py-2' : 'rounded-full bg-[#e7dfcf] px-3 py-2'}
+                  className="rounded-full px-3 py-2"
+                  style={{ backgroundColor: active ? colors.primary : colors.borderSoft }}
                 >
-                  <Text className={active ? 'text-xs font-semibold text-white' : 'text-xs font-semibold text-[#4e463e]'}>{label}</Text>
+                  <Text
+                    className="text-xs font-semibold"
+                    style={{ color: active ? '#ffffff' : colors.textStrong }}
+                  >
+                    {label}
+                  </Text>
                 </Pressable>
               );
             })}
@@ -180,9 +188,15 @@ export function AccountsListScreen({ safeAreaEdges }: AccountsListScreenProps) {
                 <Pressable
                   key={key}
                   onPress={() => setUsageSort(key)}
-                  className={active ? 'rounded-full bg-[#4e463e] px-3 py-3' : 'rounded-full bg-[#e7dfcf] px-3 py-3'}
+                  className="rounded-full px-3 py-3"
+                  style={{ backgroundColor: active ? colors.primaryDark : colors.borderSoft }}
                 >
-                  <Text className={active ? 'text-xs font-semibold text-white' : 'text-xs font-semibold text-[#4e463e]'}>{label}</Text>
+                  <Text
+                    className="text-xs font-semibold"
+                    style={{ color: active ? '#ffffff' : colors.textStrong }}
+                  >
+                    {label}
+                  </Text>
                 </Pressable>
               );
             })}
@@ -218,35 +232,48 @@ export function AccountsListScreen({ safeAreaEdges }: AccountsListScreenProps) {
             <View className="gap-3">
               <View className="flex-row items-center justify-between">
                 <View className="flex-row items-center gap-2">
-                  {account.schedulable && !isError ? <ShieldCheck color="#7d7468" size={14} /> : <ShieldOff color="#7d7468" size={14} />}
-                  <Text className="text-sm text-[#7d7468]">状态：{statusText}</Text>
+                  {account.schedulable && !isError ? (
+                    <ShieldCheck color={colors.mutedText} size={14} />
+                  ) : (
+                    <ShieldOff color={colors.mutedText} size={14} />
+                  )}
+                  <Text className="text-sm" style={{ color: colors.mutedText }}>状态：{statusText}</Text>
                 </View>
-                <Text className="text-xs text-[#7d7468]">最近使用 {formatTime(account.last_used_at || account.updated_at)}</Text>
+                <Text className="text-xs" style={{ color: colors.mutedText }}>
+                  最近使用 {formatTime(account.last_used_at || account.updated_at)}
+                </Text>
               </View>
 
               <View className="flex-row gap-2">
-                <View className="flex-1 rounded-[14px] bg-[#f1ece2] px-3 py-3">
-                  <Text className="text-[11px] text-[#7d7468]">请求次数</Text>
-                  <Text className="mt-1 text-sm font-bold text-[#16181a]">{todayStats.requests}</Text>
+                <View className="flex-1 rounded-[14px] px-3 py-3" style={{ backgroundColor: colors.mutedCard }}>
+                  <Text className="text-[11px]" style={{ color: colors.mutedText }}>请求次数</Text>
+                  <Text className="mt-1 text-sm font-bold" style={{ color: colors.text }}>{todayStats.requests}</Text>
                 </View>
-                <View className="flex-1 rounded-[14px] bg-[#f1ece2] px-3 py-3">
-                  <Text className="text-[11px] text-[#7d7468]">消费金额</Text>
-                  <Text className="mt-1 text-sm font-bold text-[#16181a]">${todayStats.cost.toFixed(2)}</Text>
+                <View className="flex-1 rounded-[14px] px-3 py-3" style={{ backgroundColor: colors.mutedCard }}>
+                  <Text className="text-[11px]" style={{ color: colors.mutedText }}>消费金额</Text>
+                  <Text className="mt-1 text-sm font-bold" style={{ color: colors.text }}>￥{todayStats.cost.toFixed(2)}</Text>
                 </View>
-                <View className="flex-1 rounded-[14px] bg-[#f1ece2] px-3 py-3">
-                  <Text className="text-[11px] text-[#7d7468]">token消耗</Text>
-                  <Text className="mt-1 text-sm font-bold text-[#16181a]">{formatTokenValue(todayStats.tokens)}</Text>
+                <View className="flex-1 rounded-[14px] px-3 py-3" style={{ backgroundColor: colors.mutedCard }}>
+                  <Text className="text-[11px]" style={{ color: colors.mutedText }}>token消耗</Text>
+                  <Text className="mt-1 text-sm font-bold" style={{ color: colors.text }}>{formatTokenValue(todayStats.tokens)}</Text>
                 </View>
               </View>
 
-              <Text className="text-xs text-[#7d7468]">优先级 {account.priority ?? 0} · 倍率 {(account.rate_multiplier ?? 1).toFixed(2)}x</Text>
+              <Text className="text-xs" style={{ color: colors.mutedText }}>
+                优先级 {account.priority ?? 0} · 倍率 {(account.rate_multiplier ?? 1).toFixed(2)}x
+              </Text>
 
-              {groupsText ? <Text className="text-xs text-[#7d7468]">分组 {groupsText}</Text> : null}
-              {account.error_message ? <Text className="text-xs text-[#a4512b]">异常信息：{account.error_message}</Text> : null}
+              {groupsText ? (
+                <Text className="text-xs" style={{ color: colors.mutedText }}>分组 {groupsText}</Text>
+              ) : null}
+              {account.error_message ? (
+                <Text className="text-xs" style={{ color: colors.badgeDangerText }}>异常信息：{account.error_message}</Text>
+              ) : null}
 
               <View className="flex-row gap-2">
                 <Pressable
-                  className="rounded-full bg-[#1b1d1f] px-4 py-2"
+                  className="rounded-full px-4 py-2"
+                  style={{ backgroundColor: colors.primary }}
                   disabled={isTestingCurrent}
                   onPress={(event) => {
                     event.stopPropagation();
@@ -265,10 +292,13 @@ export function AccountsListScreen({ safeAreaEdges }: AccountsListScreenProps) {
                     });
                   }}
                 >
-                  <Text className="text-xs font-semibold uppercase tracking-[1.2px] text-[#f6f1e8]">{isTestingCurrent ? '测试中...' : '测试'}</Text>
+                  <Text className="text-xs font-semibold uppercase tracking-[1.2px]" style={{ color: '#ffffff' }}>
+                    {isTestingCurrent ? '测试中...' : '测试'}
+                  </Text>
                 </Pressable>
                 <Pressable
-                  className="rounded-full bg-[#e7dfcf] px-4 py-2"
+                  className="rounded-full px-4 py-2"
+                  style={{ backgroundColor: colors.borderSoft }}
                   disabled={isTogglingCurrent}
                   onPress={(event) => {
                     event.stopPropagation();
@@ -283,11 +313,15 @@ export function AccountsListScreen({ safeAreaEdges }: AccountsListScreenProps) {
                     });
                   }}
                 >
-                  <Text className="text-xs font-semibold uppercase tracking-[1.2px] text-[#4e463e]">{isTogglingCurrent ? '处理中...' : toggleLabel}</Text>
+                  <Text className="text-xs font-semibold uppercase tracking-[1.2px]" style={{ color: colors.textStrong }}>
+                    {isTogglingCurrent ? '处理中...' : toggleLabel}
+                  </Text>
                 </Pressable>
               </View>
 
-              {testFeedback ? <Text className="text-xs text-[#1d5f55]">测试结果：{testFeedback}</Text> : null}
+              {testFeedback ? (
+                <Text className="text-xs" style={{ color: colors.primary }}>测试结果：{testFeedback}</Text>
+              ) : null}
             </View>
           </ListCard>
         </View>
@@ -306,7 +340,7 @@ export function AccountsListScreen({ safeAreaEdges }: AccountsListScreenProps) {
       title="账号清单"
       subtitle="查看名称、平台&类型、请求次数、消费金额、token消耗，并支持筛选与排序。"
       titleAside={(
-        <Text className="text-[11px] text-[#7d7468]">更接近网页后台的账号视图。</Text>
+        <Text className="text-[11px]" style={{ color: colors.mutedText }}>更接近网页后台的账号视图。</Text>
       )}
       variant="minimal"
       scroll={false}
@@ -321,7 +355,7 @@ export function AccountsListScreen({ safeAreaEdges }: AccountsListScreenProps) {
         renderItem={renderItem}
         keyExtractor={(item) => `${item.id}`}
         showsVerticalScrollIndicator={false}
-        refreshControl={<RefreshControl refreshing={accountsQuery.isRefetching} onRefresh={() => void accountsQuery.refetch()} tintColor="#1d5f55" />}
+        refreshControl={<RefreshControl refreshing={accountsQuery.isRefetching} onRefresh={() => void accountsQuery.refetch()} tintColor={colors.primary} />}
         ListHeaderComponent={listHeader}
         ListEmptyComponent={emptyState}
         ItemSeparatorComponent={() => <View className="h-4" />}

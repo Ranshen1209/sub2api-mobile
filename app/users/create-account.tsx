@@ -4,21 +4,9 @@ import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { colors } from '@/src/lib/colors';
 import { createAccount } from '@/src/services/admin';
 import type { AccountType } from '@/src/types/admin';
-
-const colors = {
-  page: '#f4efe4',
-  card: '#fbf8f2',
-  text: '#16181a',
-  subtext: '#6f665c',
-  border: '#e7dfcf',
-  primary: '#1d5f55',
-  dark: '#1b1d1f',
-  errorBg: '#f7e1d6',
-  errorText: '#a4512b',
-  muted: '#f7f1e6',
-};
 
 const PLATFORM_OPTIONS = ['anthropic', 'openai', 'gemini', 'sora', 'antigravity'];
 
@@ -172,9 +160,9 @@ export default function CreateAccountScreen() {
               value={name}
               onChangeText={setName}
               placeholder="例如：openai-main"
-              placeholderTextColor="#9a9082"
+              placeholderTextColor={colors.placeholder}
               style={{
-                backgroundColor: colors.muted,
+                backgroundColor: colors.mutedCard,
                 borderWidth: 1,
                 borderColor: colors.border,
                 borderRadius: 12,
@@ -199,7 +187,7 @@ export default function CreateAccountScreen() {
                       paddingVertical: 8,
                       borderWidth: 1,
                       borderColor: active ? colors.primary : colors.border,
-                      backgroundColor: active ? colors.primary : colors.muted,
+                      backgroundColor: active ? colors.primary : colors.mutedCard,
                     }}
                   >
                     <Text style={{ color: active ? '#fff' : colors.text, fontSize: 12, fontWeight: '700' }}>{item}</Text>
@@ -223,7 +211,7 @@ export default function CreateAccountScreen() {
                       alignItems: 'center',
                       borderWidth: 1,
                       borderColor: active ? colors.primary : colors.border,
-                      backgroundColor: active ? colors.primary : colors.muted,
+                      backgroundColor: active ? colors.primary : colors.mutedCard,
                     }}
                   >
                     <Text style={{ color: active ? '#fff' : colors.text, fontSize: 12, fontWeight: '700' }}>{item.toUpperCase()}</Text>
@@ -237,9 +225,9 @@ export default function CreateAccountScreen() {
               value={notes}
               onChangeText={setNotes}
               placeholder="例如：主线路账号"
-              placeholderTextColor="#9a9082"
+              placeholderTextColor={colors.placeholder}
               style={{
-                backgroundColor: colors.muted,
+                backgroundColor: colors.mutedCard,
                 borderWidth: 1,
                 borderColor: colors.border,
                 borderRadius: 12,
@@ -259,10 +247,10 @@ export default function CreateAccountScreen() {
                   value={baseUrl}
                   onChangeText={setBaseUrl}
                   placeholder="https://api.example.com"
-                  placeholderTextColor="#9a9082"
+                  placeholderTextColor={colors.placeholder}
                   autoCapitalize="none"
                   style={{
-                    backgroundColor: colors.muted,
+                    backgroundColor: colors.mutedCard,
                     borderWidth: 1,
                     borderColor: colors.border,
                     borderRadius: 12,
@@ -278,10 +266,10 @@ export default function CreateAccountScreen() {
                   value={apiKey}
                   onChangeText={setApiKey}
                   placeholder="sk-..."
-                  placeholderTextColor="#9a9082"
+                  placeholderTextColor={colors.placeholder}
                   autoCapitalize="none"
                   style={{
-                    backgroundColor: colors.muted,
+                    backgroundColor: colors.mutedCard,
                     borderWidth: 1,
                     borderColor: colors.border,
                     borderRadius: 12,
@@ -299,10 +287,10 @@ export default function CreateAccountScreen() {
                   value={accessToken}
                   onChangeText={setAccessToken}
                   placeholder="access_token"
-                  placeholderTextColor="#9a9082"
+                  placeholderTextColor={colors.placeholder}
                   autoCapitalize="none"
                   style={{
-                    backgroundColor: colors.muted,
+                    backgroundColor: colors.mutedCard,
                     borderWidth: 1,
                     borderColor: colors.border,
                     borderRadius: 12,
@@ -318,10 +306,10 @@ export default function CreateAccountScreen() {
                   value={refreshToken}
                   onChangeText={setRefreshToken}
                   placeholder="refresh_token"
-                  placeholderTextColor="#9a9082"
+                  placeholderTextColor={colors.placeholder}
                   autoCapitalize="none"
                   style={{
-                    backgroundColor: colors.muted,
+                    backgroundColor: colors.mutedCard,
                     borderWidth: 1,
                     borderColor: colors.border,
                     borderRadius: 12,
@@ -337,10 +325,10 @@ export default function CreateAccountScreen() {
                   value={clientId}
                   onChangeText={setClientId}
                   placeholder="client_id"
-                  placeholderTextColor="#9a9082"
+                  placeholderTextColor={colors.placeholder}
                   autoCapitalize="none"
                   style={{
-                    backgroundColor: colors.muted,
+                    backgroundColor: colors.mutedCard,
                     borderWidth: 1,
                     borderColor: colors.border,
                     borderRadius: 12,
@@ -358,12 +346,12 @@ export default function CreateAccountScreen() {
               value={extraCredentialsJson}
               onChangeText={setExtraCredentialsJson}
               placeholder='例如：{"project_id":"abc","tier_id":2}'
-              placeholderTextColor="#9a9082"
+              placeholderTextColor={colors.placeholder}
               multiline
               style={{
                 minHeight: 88,
                 textAlignVertical: 'top',
-                backgroundColor: colors.muted,
+                backgroundColor: colors.mutedCard,
                 borderWidth: 1,
                 borderColor: colors.border,
                 borderRadius: 12,
@@ -381,9 +369,9 @@ export default function CreateAccountScreen() {
               onChangeText={setConcurrency}
               keyboardType="number-pad"
               placeholder="例如：10"
-              placeholderTextColor="#9a9082"
+              placeholderTextColor={colors.placeholder}
               style={{
-                backgroundColor: colors.muted,
+                backgroundColor: colors.mutedCard,
                 borderWidth: 1,
                 borderColor: colors.border,
                 borderRadius: 12,
@@ -400,9 +388,9 @@ export default function CreateAccountScreen() {
               onChangeText={setPriority}
               keyboardType="number-pad"
               placeholder="例如：0"
-              placeholderTextColor="#9a9082"
+              placeholderTextColor={colors.placeholder}
               style={{
-                backgroundColor: colors.muted,
+                backgroundColor: colors.mutedCard,
                 borderWidth: 1,
                 borderColor: colors.border,
                 borderRadius: 12,
@@ -419,9 +407,9 @@ export default function CreateAccountScreen() {
               onChangeText={setRateMultiplier}
               keyboardType="decimal-pad"
               placeholder="例如：1"
-              placeholderTextColor="#9a9082"
+              placeholderTextColor={colors.placeholder}
               style={{
-                backgroundColor: colors.muted,
+                backgroundColor: colors.mutedCard,
                 borderWidth: 1,
                 borderColor: colors.border,
                 borderRadius: 12,
@@ -438,9 +426,9 @@ export default function CreateAccountScreen() {
               onChangeText={setProxyId}
               keyboardType="number-pad"
               placeholder="例如：3"
-              placeholderTextColor="#9a9082"
+              placeholderTextColor={colors.placeholder}
               style={{
-                backgroundColor: colors.muted,
+                backgroundColor: colors.mutedCard,
                 borderWidth: 1,
                 borderColor: colors.border,
                 borderRadius: 12,
@@ -456,9 +444,9 @@ export default function CreateAccountScreen() {
               value={groupIds}
               onChangeText={setGroupIds}
               placeholder="例如：1,2,5"
-              placeholderTextColor="#9a9082"
+              placeholderTextColor={colors.placeholder}
               style={{
-                backgroundColor: colors.muted,
+                backgroundColor: colors.mutedCard,
                 borderWidth: 1,
                 borderColor: colors.border,
                 borderRadius: 12,
@@ -470,8 +458,8 @@ export default function CreateAccountScreen() {
           </Section>
 
           {formError ? (
-            <View style={{ backgroundColor: colors.errorBg, borderRadius: 12, padding: 12, marginBottom: 12 }}>
-              <Text style={{ color: colors.errorText }}>{formError}</Text>
+            <View style={{ backgroundColor: colors.dangerBg, borderRadius: 12, padding: 12, marginBottom: 12 }}>
+              <Text style={{ color: colors.danger }}>{formError}</Text>
             </View>
           ) : null}
 
@@ -482,7 +470,7 @@ export default function CreateAccountScreen() {
             }}
             disabled={!canSubmit || createMutation.isPending}
             style={{
-              backgroundColor: !canSubmit || createMutation.isPending ? '#8a8072' : colors.dark,
+              backgroundColor: !canSubmit || createMutation.isPending ? '#8a8072' : colors.darkButton,
               borderRadius: 12,
               paddingVertical: 14,
               alignItems: 'center',
