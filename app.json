@@ -15,14 +15,14 @@
     "ios": {
       "supportsTablet": true,
       "icon": "./icons/ios/AppIcon.appiconset/icon-1024.png",
-      "bundleIdentifier": "com.sakrylle.admin",
+      "bundleIdentifier": "app.libra6393.papaya2609",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
       "icon": "./icons/android/playstore-icon.png",
-      "package": "com.sakrylle.admin",
+      "package": "app.libra6393.papaya2609",
       "adaptiveIcon": {
         "backgroundColor": "#f5f1fa",
         "foregroundImage": "./icons/android/playstore-icon.png"
