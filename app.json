@@ -7,11 +7,6 @@
     "orientation": "portrait",
     "icon": "./icons/ios/AppIcon.appiconset/icon-1024.png",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#f5f1fa"
-    },
     "ios": {
       "supportsTablet": true,
       "icon": "./icons/ios/AppIcon.appiconset/icon-1024.png",
@@ -35,7 +30,20 @@
     "plugins": [
       "expo-router",
       "expo-secure-store",
-      "react-native-bottom-tabs"
+      "react-native-bottom-tabs",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#f5f1fa",
+          "dark": {
+            "image": "./assets/splash-icon.png",
+            "backgroundColor": "#14101c"
+          }
+        }
+      ]
     ],
     "extra": {
       "router": {},
