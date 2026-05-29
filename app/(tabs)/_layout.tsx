@@ -51,6 +51,13 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="status"
+        options={{
+          title: '状态',
+          tabBarIcon: () => ({ sfSymbol: 'waveform.path.ecg' }),
+        }}
+      />
+      <Tabs.Screen
         name="settings"
         options={{
           title: '服务器',
