@@ -1,0 +1,17 @@
+---
+description: How to add new admin API endpoints mirrored from sub2api backend
+globs: src/services/**,src/types/**,app/**
+alwaysApply: false
+---
+
+# Syncing with Backend
+
+`src/services/admin.ts` mirrors `sub2api/backend/internal/api/admin/*.go`.
+
+When backend adds a new admin endpoint:
+
+1. Add types to `src/types/admin.ts`
+2. Add service function to `src/services/admin.ts`
+3. Wire up in UI (`app/...`)
+
+Use existing `adminFetch` patterns — never bypass envelope parsing or switch to Bearer auth.

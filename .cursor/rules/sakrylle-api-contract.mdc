@@ -1,0 +1,44 @@
+---
+description: API auth, envelope, storage keys, currency, and bundle identity (critical invariants)
+alwaysApply: true
+---
+
+# API Contract
+
+baseUrl is user-configured at login, stored in Valtio state.
+
+`admin-fetch.ts` behavior:
+- Auth header: `x-api-key` (**NOT** `Authorization: Bearer`)
+- URL dedup: if baseUrl ends with `/api/v1` and path starts with `/api/v1/`, strip duplicate
+- Envelope: `{code, message, data, reason?}` — `code !== 0` is error
+- Throws `INVALID_SERVER_RESPONSE` if not valid JSON envelope
+
+Dashboard uses `snapshot-v2` (not `snapshot`). 404 on snapshot-v2 = sub2api version too old.
+
+# Persistence — DO NOT Rename Keys
+
+Existing users lose config if these change:
+
+```
+sub2api_base_url
+sub2api_admin_api_key
+sub2api_accounts
+sub2api_active_account_id
+```
+
+**Web:** `Platform.OS === 'web'` → `adminApiKey` never persisted; refresh = logout. `sanitizeAccountsForWeb` strips keys from accounts array.
+
+**Legacy:** `hydrateAdminConfig` migrates old single-account keys to accounts array format.
+
+# Currency
+
+Display `￥` prefix on all monetary values. **No FX conversion** — internal billing units as-is. Matches sub2api backend convention.
+
+# Bundle & Identity
+
+- Bundle ID: `app.libra6393.papaya2609` (iOS + Android)
+- Scheme: `sakrylle`
+- EAS: owner `ckken`, projectId `acaedd05-5a2a-4843-a648-e025c08ce7b3`
+- App name: "Sakrylle Admin"
+
+Production native builds connect to `https://api.sakrylle.com` directly, never through the dev proxy.

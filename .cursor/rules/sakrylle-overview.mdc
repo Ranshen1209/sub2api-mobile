@@ -1,0 +1,30 @@
+---
+description: Sakrylle Admin project overview, commands, and quality gate
+alwaysApply: true
+---
+
+# Sakrylle Admin
+
+Mobile admin app for sub2api — admin-only: users, groups, accounts, key monitoring, dashboard trends, account ops. No end-user login flow.
+
+## Commands
+
+```bash
+npm ci                  # Install dependencies
+npm run start           # Metro (Expo Go or dev client)
+npm run ios             # iOS simulator
+npm run android         # Android emulator
+npm run web             # Web at localhost:8081
+npx tsc --noEmit        # Type check — sole quality gate
+npm run proxy           # Express reverse proxy (port 8787)
+npm run dev:web-proxy   # Proxy + web (CORS debugging)
+npm run start:dev-client
+```
+
+No test framework. No linter. TypeScript strict mode only.
+
+## Sister Repos
+
+- [sub2api](https://github.com/Ranshen1209/sub2api) — backend + web admin (`sub.sakrylle.com`)
+- [sakrylle-docs](https://github.com/Ranshen1209/sakrylle-docs) — docs (`doc.sakrylle.com`)
+- [relay-pulse](https://github.com/Ranshen1209/relay-pulse) — status (`status.sakrylle.com`)

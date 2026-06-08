@@ -1,0 +1,37 @@
+---
+description: Expo Router layout, state, theming, and data layer conventions
+globs: app/**,src/**
+alwaysApply: false
+---
+
+# Architecture
+
+**Stack:** Expo SDK 54 / RN 0.81 / React 19 / Expo Router 6 / TanStack Query 5 / Valtio 2 / TailwindCSS 4 + uniwind / react-hook-form + zod / lucide-react-native / expo-secure-store. TS 5.9.
+
+**Path alias:** `@/*` → project root (`baseUrl: "."`).
+
+**Entry:** `expo-router/entry` → `app/_layout.tsx`
+
+## Routing
+
+- `app/(tabs)/{monitor,users,settings}` — visible tabs (native bottom tabs via `@bottom-tabs/react-navigation`)
+- `app/(tabs)/{groups,accounts}` — hidden tabs (`tabBarItemHidden: true`), programmatic navigation
+- Stack: `app/users/[id]`, `app/users/create-{user,account}`, `app/accounts/{create,overview}`, `app/login.tsx`
+
+**Tab bar:** `createNativeBottomTabNavigator` (iOS 26 native tab bar). Icons are SF Symbols, not React components.
+
+## State
+
+- `src/store/admin-config.ts` — Valtio + expo-secure-store (native) / localStorage (web)
+- TanStack Query for server state
+- Valtio snapshots: `require('valtio/react').useSnapshot` (CJS require, not ESM — intentional RN bundler workaround)
+
+## Theming
+
+`src/lib/colors.ts` → `useColors()` (dark/light via `useColorScheme()`). All components use color tokens from this hook. **No hardcoded hex in components.**
+
+## Data Layer
+
+- `src/lib/admin-fetch.ts` — fetch wrapper (x-api-key, URL dedup, envelope parsing)
+- `src/services/admin.ts` — all `/api/v1/admin/*` calls
+- `src/types/admin.ts` — API response types

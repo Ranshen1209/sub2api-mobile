@@ -1,0 +1,17 @@
+---
+description: Express dev proxy for web CORS and keys aggregation
+globs: server/**
+alwaysApply: false
+---
+
+# Local Proxy (Dev Only)
+
+`server/index.js` — Express reverse proxy:
+
+- Forwards `/api/v1/admin/*` to `SUB2API_BASE_URL` with injected `SUB2API_ADMIN_API_KEY`
+- Redacts `credentials` from `/accounts*` responses
+- `/api/v1/keys` aggregation endpoint (404 on real backend without proxy)
+
+Env vars: `SUB2API_BASE_URL`, `SUB2API_ADMIN_API_KEY`, `PORT`, `ALLOW_ORIGIN`
+
+Run: `npm run proxy` or `npm run dev:web-proxy`

@@ -1,0 +1,46 @@
+---
+description: EAS build, OTA updates, and local iOS AdHoc IPA signing
+globs: app.json,eas.json,ios/**
+alwaysApply: false
+---
+
+# EAS Build & OTA
+
+```bash
+npx eas build --profile development -p ios    # Dev client (simulator)
+npx eas build --profile preview               # Internal distribution
+npx eas build --profile production            # Production (autoIncrement)
+npx eas update --branch preview --message "..."
+npx eas update --branch production --message "..."
+```
+
+`runtimeVersion` policy = `appVersion`. Changing `app.json` version breaks OTA to older builds. Native changes (expo-* upgrades, bundle ID, scheme) require full rebuild.
+
+# Local iOS Build & IPA (AdHoc)
+
+```bash
+npx expo prebuild --platform ios --clean
+
+cd ios
+xcodebuild -workspace SakrylleAdmin.xcworkspace \
+  -scheme SakrylleAdmin -configuration Release \
+  -destination 'generic/platform=iOS' \
+  -derivedDataPath build -archivePath build/SakrylleAdmin.xcarchive \
+  archive \
+  DEVELOPMENT_TEAM=DZ6C9K6CHB \
+  CODE_SIGN_IDENTITY="iPhone Distribution: Milton Kelly (DZ6C9K6CHB)" \
+  CODE_SIGN_STYLE=Manual \
+  "PROVISIONING_PROFILE=ad3d147c-8fce-44a8-83ce-1f2a247490f3"
+
+xcodebuild -exportArchive \
+  -archivePath build/SakrylleAdmin.xcarchive \
+  -exportPath build/ipa \
+  -exportOptionsPlist ExportOptions.plist
+# Output: ios/build/ipa/SakrylleAdmin.ipa
+```
+
+**Signing:** `iPhone Distribution: Milton Kelly (DZ6C9K6CHB)`
+**Profile UUID:** `ad3d147c-8fce-44a8-83ce-1f2a247490f3` (AdHoc, bundle `app.libra6393.papaya2609`)
+**ExportOptions.plist:** `ios/ExportOptions.plist` (ad-hoc, manual signing)
+
+Unsigned debug builds: pass `CODE_SIGNING_ALLOWED=NO` instead of signing flags.
