@@ -1,0 +1,10 @@
+services:
+  sakrylle-server:
+    build: .
+    ports:
+      - "8787:8787"
+    environment:
+      PORT: "8787"
+      SUB2API_BASE_URL: "${SUB2API_BASE_URL}"
+      SUB2API_ADMIN_API_KEY: "${SUB2API_ADMIN_API_KEY}"
+      ALLOW_ORIGIN: "${ALLOW_ORIGIN:-*}"
