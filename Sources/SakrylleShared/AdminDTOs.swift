@@ -146,12 +146,38 @@ public struct AdminAPIKeyDTO: Codable, Sendable, Equatable, Identifiable {
     public let usage7d: Double?
     public let group: AdminGroupDTO?
     public let user: AdminAPIKeyUserDTO?
+
+    public init(id: Int, userId: Int, key: String, name: String, groupId: Int? = nil, status: String, quota: Double, quotaUsed: Double, lastUsedAt: String? = nil, expiresAt: String? = nil, createdAt: String? = nil, updatedAt: String? = nil, usage5h: Double? = nil, usage1d: Double? = nil, usage7d: Double? = nil, group: AdminGroupDTO? = nil, user: AdminAPIKeyUserDTO? = nil) {
+        self.id = id
+        self.userId = userId
+        self.key = key
+        self.name = name
+        self.groupId = groupId
+        self.status = status
+        self.quota = quota
+        self.quotaUsed = quotaUsed
+        self.lastUsedAt = lastUsedAt
+        self.expiresAt = expiresAt
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.usage5h = usage5h
+        self.usage1d = usage1d
+        self.usage7d = usage7d
+        self.group = group
+        self.user = user
+    }
 }
 
 public struct AdminAPIKeyUserDTO: Codable, Sendable, Equatable, Identifiable {
     public let id: Int
     public let email: String?
     public let username: String?
+
+    public init(id: Int, email: String? = nil, username: String? = nil) {
+        self.id = id
+        self.email = email
+        self.username = username
+    }
 }
 
 public enum BalanceOperation: String, Codable, Sendable, Equatable, CaseIterable {

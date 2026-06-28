@@ -6,7 +6,9 @@ final class DTOTests: XCTestCase {
         let data = """
         {"code":0,"message":"success","data":{"items":[],"total":0,"page":1,"page_size":20,"pages":1}}
         """.data(using: .utf8)!
-        let decoded = try JSONDecoder().decode(APIEnvelope<PaginatedData<AdminUserDTO>>.self, from: data)
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let decoded = try decoder.decode(APIEnvelope<PaginatedData<AdminUserDTO>>.self, from: data)
         XCTAssertEqual(decoded.code, 0)
         XCTAssertEqual(decoded.data?.pageSize, 20)
     }

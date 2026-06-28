@@ -59,7 +59,7 @@ public struct PaginatedData<T: Codable & Sendable>: Codable, Sendable {
         case items
         case total
         case page
-        case pageSize = "page_size"
+        case pageSize
         case pages
     }
 }
