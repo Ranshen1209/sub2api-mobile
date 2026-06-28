@@ -1,0 +1,639 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DC5744514B7AA242CB72190 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B424B0756CB3B7488E49A763 /* GroupsView.swift */; };
+		2D951C77C533E6725A546E6F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA63C17449D3521E6119F5F8 /* AppState.swift */; };
+		2E565B714F49B55F0FCFCF0F /* FeatureHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBEC897E940E6CC3FA4BE61 /* FeatureHelpers.swift */; };
+		45334F1405422026077DCE95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3515D0CBA60F2D2CB93502F /* Assets.xcassets */; };
+		45C58337240F58417D2FEFD9 /* AdminAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA85F362CA4F2C02F50EDF24 /* AdminAPIClient.swift */; };
+		4A722673C1A5DCCE33868F35 /* MonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8107B42AD981E072FA4F836 /* MonitorView.swift */; };
+		64B7F236F30B0FEFB7731B8A /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C04F716856A5CE1FC7FEAE /* ColorPalette.swift */; };
+		706BFCDF88FDC4F8568C637F /* MetricTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED52CA95FDC67039987F33A /* MetricTile.swift */; };
+		7923EB59C4AE7990678B5C6D /* ListCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE61C0B438ABB19B7883720 /* ListCard.swift */; };
+		8AE4860E794A29F9E7025F9E /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F98A45A981E7D241FB4804 /* UsersView.swift */; };
+		9016974CC40AF3A4BD9BE2AF /* SakrylleAdminUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08FF3AB51C3873F1AD041A /* SakrylleAdminUITests.swift */; };
+		969F915920F8B2B290B613E1 /* ScreenScaffold.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57DA847AD72432F99DE4E13 /* ScreenScaffold.swift */; };
+		9A5CB40A5A853791AB2AEA3A /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903A840809B1E59B5DF3F45A /* CreateAccountView.swift */; };
+		A39B5D50F0EB745DE862FDF7 /* StatusAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D6A6FA5DDF507122CAF754 /* StatusAPIClient.swift */; };
+		A484B895EC5D0729F006389C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09454FDC7DFB5B1BDEF5055 /* SettingsView.swift */; };
+		A769FC130921AF87EFC8825C /* SakrylleAdminApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1482937F71FD60C4429512 /* SakrylleAdminApp.swift */; };
+		AC28350BEE4A99C025C8CE43 /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009200F9152208437F66ADC2 /* CreateUserView.swift */; };
+		C02FDBA64FBA51534BEAA5A8 /* ServiceStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB446E878A823D600A06EC /* ServiceStatusView.swift */; };
+		C5A80EC37E0A4DB3D3DD837B /* SakrylleAdminTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF64935661CD687EB980F375 /* SakrylleAdminTests.swift */; };
+		E00D0ACCD7D61B0AB5F9410F /* AccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AACEFF61F948038E457E2D /* AccountsView.swift */; };
+		EDB4210C406C3F42CCBF489C /* SakrylleShared in Frameworks */ = {isa = PBXBuildFile; productRef = B7D3F0006BBE13540D2C95E7 /* SakrylleShared */; };
+		F4BA9126A4F1887D63111C15 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AE625A2F9865D956E6F09F /* LoginView.swift */; };
+		F613DD0C9E16440E9DB0F578 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51EE05B147AC8DFFE3842E /* UserDetailView.swift */; };
+		FF4372FE49C1AA1D165386EF /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F66131FEB7DAD4E3E20B64D /* Charts.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		29B9E891249B781F903314DC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E8A985DEF17B4063A1B2F31 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 423019364A68C1DEFCA710E1;
+			remoteInfo = SakrylleAdmin;
+		};
+		C32474DC79328E4332F004E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E8A985DEF17B4063A1B2F31 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 423019364A68C1DEFCA710E1;
+			remoteInfo = SakrylleAdmin;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		009200F9152208437F66ADC2 /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
+		0B51EE05B147AC8DFFE3842E /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
+		112DD614B4945B46D2DA1D93 /* SakrylleAdminTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SakrylleAdminTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		15F98A45A981E7D241FB4804 /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
+		39AB446E878A823D600A06EC /* ServiceStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceStatusView.swift; sourceTree = "<group>"; };
+		4CBEC897E940E6CC3FA4BE61 /* FeatureHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureHelpers.swift; sourceTree = "<group>"; };
+		54BE8EACB7774B501E8D8D81 /* SakrylleAdmin.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SakrylleAdmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		58D6A6FA5DDF507122CAF754 /* StatusAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusAPIClient.swift; sourceTree = "<group>"; };
+		6ED52CA95FDC67039987F33A /* MetricTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricTile.swift; sourceTree = "<group>"; };
+		6F66131FEB7DAD4E3E20B64D /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
+		7D1482937F71FD60C4429512 /* SakrylleAdminApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakrylleAdminApp.swift; sourceTree = "<group>"; };
+		82AACEFF61F948038E457E2D /* AccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsView.swift; sourceTree = "<group>"; };
+		903A840809B1E59B5DF3F45A /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		9E08FF3AB51C3873F1AD041A /* SakrylleAdminUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakrylleAdminUITests.swift; sourceTree = "<group>"; };
+		A8107B42AD981E072FA4F836 /* MonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorView.swift; sourceTree = "<group>"; };
+		AF64935661CD687EB980F375 /* SakrylleAdminTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakrylleAdminTests.swift; sourceTree = "<group>"; };
+		B09454FDC7DFB5B1BDEF5055 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B3515D0CBA60F2D2CB93502F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B424B0756CB3B7488E49A763 /* GroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
+		BA85F362CA4F2C02F50EDF24 /* AdminAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminAPIClient.swift; sourceTree = "<group>"; };
+		C6C04F716856A5CE1FC7FEAE /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		CA63C17449D3521E6119F5F8 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		F57DA847AD72432F99DE4E13 /* ScreenScaffold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenScaffold.swift; sourceTree = "<group>"; };
+		F6AE625A2F9865D956E6F09F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		FD5089F4FFFF676E2679C947 /* Sakrylle Admin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Sakrylle Admin"; path = ../..; sourceTree = SOURCE_ROOT; };
+		FDDE4C7ED08A0712685DB4D4 /* SakrylleAdminUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SakrylleAdminUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDE61C0B438ABB19B7883720 /* ListCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCard.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		97DB7A9BACFEEA0319DCDF3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDB4210C406C3F42CCBF489C /* SakrylleShared in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		202A0A40C32EE30313B98A4C /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				82AACEFF61F948038E457E2D /* AccountsView.swift */,
+				903A840809B1E59B5DF3F45A /* CreateAccountView.swift */,
+				009200F9152208437F66ADC2 /* CreateUserView.swift */,
+				4CBEC897E940E6CC3FA4BE61 /* FeatureHelpers.swift */,
+				B424B0756CB3B7488E49A763 /* GroupsView.swift */,
+				F6AE625A2F9865D956E6F09F /* LoginView.swift */,
+				A8107B42AD981E072FA4F836 /* MonitorView.swift */,
+				39AB446E878A823D600A06EC /* ServiceStatusView.swift */,
+				B09454FDC7DFB5B1BDEF5055 /* SettingsView.swift */,
+				0B51EE05B147AC8DFFE3842E /* UserDetailView.swift */,
+				15F98A45A981E7D241FB4804 /* UsersView.swift */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		7A611327BB27F58C3E6F2366 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				FD5089F4FFFF676E2679C947 /* Sakrylle Admin */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		B20D6B45E7CFF5A6A8A98B0C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				54BE8EACB7774B501E8D8D81 /* SakrylleAdmin.app */,
+				112DD614B4945B46D2DA1D93 /* SakrylleAdminTests.xctest */,
+				FDDE4C7ED08A0712685DB4D4 /* SakrylleAdminUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C8750C31ED0254AE1BB5E0C1 /* SakrylleAdmin */ = {
+			isa = PBXGroup;
+			children = (
+				BA85F362CA4F2C02F50EDF24 /* AdminAPIClient.swift */,
+				CA63C17449D3521E6119F5F8 /* AppState.swift */,
+				B3515D0CBA60F2D2CB93502F /* Assets.xcassets */,
+				C6C04F716856A5CE1FC7FEAE /* ColorPalette.swift */,
+				7D1482937F71FD60C4429512 /* SakrylleAdminApp.swift */,
+				58D6A6FA5DDF507122CAF754 /* StatusAPIClient.swift */,
+				ED765C25BC99C5095341571B /* Components */,
+				202A0A40C32EE30313B98A4C /* Features */,
+			);
+			path = SakrylleAdmin;
+			sourceTree = "<group>";
+		};
+		CFB712D08D2A25FB953F9109 /* SakrylleAdminUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9E08FF3AB51C3873F1AD041A /* SakrylleAdminUITests.swift */,
+			);
+			path = SakrylleAdminUITests;
+			sourceTree = "<group>";
+		};
+		ED765C25BC99C5095341571B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				6F66131FEB7DAD4E3E20B64D /* Charts.swift */,
+				FDE61C0B438ABB19B7883720 /* ListCard.swift */,
+				6ED52CA95FDC67039987F33A /* MetricTile.swift */,
+				F57DA847AD72432F99DE4E13 /* ScreenScaffold.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F30878B07F567831DDB0BD3D = {
+			isa = PBXGroup;
+			children = (
+				7A611327BB27F58C3E6F2366 /* Packages */,
+				C8750C31ED0254AE1BB5E0C1 /* SakrylleAdmin */,
+				FBABD1608C9FB56964C63967 /* SakrylleAdminTests */,
+				CFB712D08D2A25FB953F9109 /* SakrylleAdminUITests */,
+				B20D6B45E7CFF5A6A8A98B0C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FBABD1608C9FB56964C63967 /* SakrylleAdminTests */ = {
+			isa = PBXGroup;
+			children = (
+				AF64935661CD687EB980F375 /* SakrylleAdminTests.swift */,
+			);
+			path = SakrylleAdminTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		423019364A68C1DEFCA710E1 /* SakrylleAdmin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0139B56EA4C0BA003C2F3E72 /* Build configuration list for PBXNativeTarget "SakrylleAdmin" */;
+			buildPhases = (
+				28482BF260AAA39282201022 /* Sources */,
+				D9C6F00200B1B0DECD47B164 /* Resources */,
+				97DB7A9BACFEEA0319DCDF3E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SakrylleAdmin;
+			packageProductDependencies = (
+				B7D3F0006BBE13540D2C95E7 /* SakrylleShared */,
+			);
+			productName = SakrylleAdmin;
+			productReference = 54BE8EACB7774B501E8D8D81 /* SakrylleAdmin.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A22DDFF54F031D27D7BCFC7C /* SakrylleAdminUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FD29632CF2C2C6D28B157AA /* Build configuration list for PBXNativeTarget "SakrylleAdminUITests" */;
+			buildPhases = (
+				5FE216D880565D6EAF81612E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2D14CC468037AC4450BE9CA7 /* PBXTargetDependency */,
+			);
+			name = SakrylleAdminUITests;
+			packageProductDependencies = (
+			);
+			productName = SakrylleAdminUITests;
+			productReference = FDDE4C7ED08A0712685DB4D4 /* SakrylleAdminUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		B3E4362B259E33C88E50FDA1 /* SakrylleAdminTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E3EE8F218CB235D8F6C06D54 /* Build configuration list for PBXNativeTarget "SakrylleAdminTests" */;
+			buildPhases = (
+				62762120970FE947EDB7AAA9 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				298C01DA98235FE57B329140 /* PBXTargetDependency */,
+			);
+			name = SakrylleAdminTests;
+			packageProductDependencies = (
+			);
+			productName = SakrylleAdminTests;
+			productReference = 112DD614B4945B46D2DA1D93 /* SakrylleAdminTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2E8A985DEF17B4063A1B2F31 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					A22DDFF54F031D27D7BCFC7C = {
+						TestTargetID = 423019364A68C1DEFCA710E1;
+					};
+				};
+			};
+			buildConfigurationList = 1590A1252280B353875B3F33 /* Build configuration list for PBXProject "SakrylleAdmin" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = F30878B07F567831DDB0BD3D;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D5BFD21FD93E3EC6D8B492A1 /* XCLocalSwiftPackageReference "../.." */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = B20D6B45E7CFF5A6A8A98B0C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				423019364A68C1DEFCA710E1 /* SakrylleAdmin */,
+				B3E4362B259E33C88E50FDA1 /* SakrylleAdminTests */,
+				A22DDFF54F031D27D7BCFC7C /* SakrylleAdminUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D9C6F00200B1B0DECD47B164 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45334F1405422026077DCE95 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		28482BF260AAA39282201022 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E00D0ACCD7D61B0AB5F9410F /* AccountsView.swift in Sources */,
+				45C58337240F58417D2FEFD9 /* AdminAPIClient.swift in Sources */,
+				2D951C77C533E6725A546E6F /* AppState.swift in Sources */,
+				FF4372FE49C1AA1D165386EF /* Charts.swift in Sources */,
+				64B7F236F30B0FEFB7731B8A /* ColorPalette.swift in Sources */,
+				9A5CB40A5A853791AB2AEA3A /* CreateAccountView.swift in Sources */,
+				AC28350BEE4A99C025C8CE43 /* CreateUserView.swift in Sources */,
+				2E565B714F49B55F0FCFCF0F /* FeatureHelpers.swift in Sources */,
+				1DC5744514B7AA242CB72190 /* GroupsView.swift in Sources */,
+				7923EB59C4AE7990678B5C6D /* ListCard.swift in Sources */,
+				F4BA9126A4F1887D63111C15 /* LoginView.swift in Sources */,
+				706BFCDF88FDC4F8568C637F /* MetricTile.swift in Sources */,
+				4A722673C1A5DCCE33868F35 /* MonitorView.swift in Sources */,
+				A769FC130921AF87EFC8825C /* SakrylleAdminApp.swift in Sources */,
+				969F915920F8B2B290B613E1 /* ScreenScaffold.swift in Sources */,
+				C02FDBA64FBA51534BEAA5A8 /* ServiceStatusView.swift in Sources */,
+				A484B895EC5D0729F006389C /* SettingsView.swift in Sources */,
+				A39B5D50F0EB745DE862FDF7 /* StatusAPIClient.swift in Sources */,
+				F613DD0C9E16440E9DB0F578 /* UserDetailView.swift in Sources */,
+				8AE4860E794A29F9E7025F9E /* UsersView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5FE216D880565D6EAF81612E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9016974CC40AF3A4BD9BE2AF /* SakrylleAdminUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62762120970FE947EDB7AAA9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5A80EC37E0A4DB3D3DD837B /* SakrylleAdminTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		298C01DA98235FE57B329140 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 423019364A68C1DEFCA710E1 /* SakrylleAdmin */;
+			targetProxy = C32474DC79328E4332F004E2 /* PBXContainerItemProxy */;
+		};
+		2D14CC468037AC4450BE9CA7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 423019364A68C1DEFCA710E1 /* SakrylleAdmin */;
+			targetProxy = 29B9E891249B781F903314DC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		15E91B90F360059B40E2A8E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7771FB68F4E1FD11F0E75E48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		862A3CA79DE6C67BA91166BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sakrylle.admin.uitests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SakrylleAdmin;
+			};
+			name = Debug;
+		};
+		9AB9A93A65C7640D3828F638 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sakrylle.admin.tests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SakrylleAdmin.app/SakrylleAdmin";
+			};
+			name = Debug;
+		};
+		BA712B3A803146F0CF0F10DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sakrylle.admin.uitests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SakrylleAdmin;
+			};
+			name = Release;
+		};
+		D670995589201286C9781A8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Sakrylle Admin";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sakrylle.admin;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E482A58856C8AA004901AF66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Sakrylle Admin";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sakrylle.admin;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FDACBA63AEA80ECCC554738B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sakrylle.admin.tests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SakrylleAdmin.app/SakrylleAdmin";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0139B56EA4C0BA003C2F3E72 /* Build configuration list for PBXNativeTarget "SakrylleAdmin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D670995589201286C9781A8F /* Debug */,
+				E482A58856C8AA004901AF66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1590A1252280B353875B3F33 /* Build configuration list for PBXProject "SakrylleAdmin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15E91B90F360059B40E2A8E5 /* Debug */,
+				7771FB68F4E1FD11F0E75E48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4FD29632CF2C2C6D28B157AA /* Build configuration list for PBXNativeTarget "SakrylleAdminUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				862A3CA79DE6C67BA91166BC /* Debug */,
+				BA712B3A803146F0CF0F10DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E3EE8F218CB235D8F6C06D54 /* Build configuration list for PBXNativeTarget "SakrylleAdminTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AB9A93A65C7640D3828F638 /* Debug */,
+				FDACBA63AEA80ECCC554738B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		D5BFD21FD93E3EC6D8B492A1 /* XCLocalSwiftPackageReference "../.." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B7D3F0006BBE13540D2C95E7 /* SakrylleShared */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SakrylleShared;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 2E8A985DEF17B4063A1B2F31 /* Project object */;
+}
