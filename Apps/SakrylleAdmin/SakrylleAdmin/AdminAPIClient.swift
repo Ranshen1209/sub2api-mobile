@@ -63,12 +63,23 @@ final class AdminAPIClient: @unchecked Sendable {
         do {
             envelope = try decoder.decode(APIEnvelope<T>.self, from: data)
         } catch {
+            if T.self == JSONValue.self,
+               (200..<300).contains(http.statusCode),
+               let value = try? decoder.decode(JSONValue.self, from: data),
+               let payload = value as? T {
+                return payload
+            }
             throw APIClientError.invalidServerResponse
         }
         guard (200..<300).contains(http.statusCode), envelope.code == 0 else {
             throw APIClientError.requestFailed(envelope.reason ?? envelope.message)
         }
-        guard let payload = envelope.data else { throw APIClientError.missingData }
+        guard let payload = envelope.data else {
+            if T.self == JSONValue.self, let payload = JSONValue.null as? T {
+                return payload
+            }
+            throw APIClientError.missingData
+        }
         return payload
     }
 
@@ -110,11 +121,21 @@ extension AdminAPIClient {
     }
 
     func getUsageStats(params: [String: any CustomStringConvertible]) async throws -> UsageStatsDTO {
-        try await send("/api/v1/admin/usage/stats", query: params.map { URLQueryItem(name: $0.key, value: "\($0.value)") })
+        var query = params.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+        if !params.keys.contains("timezone") {
+            query.append(URLQueryItem(name: "timezone", value: TimeZone.current.identifier))
+        }
+        return try await send("/api/v1/admin/usage/stats", query: query)
     }
 
-    func listUsers(search: String = "") async throws -> PaginatedData<AdminUserDTO> {
-        try await send("/api/v1/admin/users", query: compactQuery(["page": 1, "page_size": 20, "search": search.trimmingCharacters(in: .whitespacesAndNewlines)]))
+    func listUsers(search: String = "", page: Int = 1, pageSize: Int = 20, sortOrder: String? = nil) async throws -> PaginatedData<AdminUserDTO> {
+        try await send("/api/v1/admin/users", query: compactQuery([
+            "page": page,
+            "page_size": pageSize,
+            "search": search.trimmingCharacters(in: .whitespacesAndNewlines),
+            "sort_by": "last_used_at",
+            "sort_order": sortOrder
+        ]))
     }
 
     func getUser(_ id: Int) async throws -> AdminUserDTO {

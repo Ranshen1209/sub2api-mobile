@@ -7,6 +7,7 @@ struct UserDetailView: View {
     @Environment(\.adminAPIClient) private var client
     @State private var user: AdminUserDTO?
     @State private var keys: [AdminAPIKeyDTO] = []
+    @State private var usageByKeyID: [Int: UsageStatsDTO] = [:]
     @State private var usage: UsageStatsDTO?
     @State private var snapshot: DashboardSnapshotDTO?
     @State private var rangeKey: RangeKey = .d7
@@ -16,9 +17,10 @@ struct UserDetailView: View {
     @State private var notes = ""
     @State private var operation: BalanceOperation = .add
     @State private var errorText: String?
+    @State private var loadGeneration = 0
 
     var body: some View {
-        ScreenScaffold("用户详情", subtitle: user?.email) {
+        ScreenScaffold("用户详情", subtitle: user?.email, iconName: "SakrylleHomeIcon") {
             if let user {
                 ListCard {
                     HStack {
@@ -56,24 +58,33 @@ struct UserDetailView: View {
                         .font(.caption)
                         .foregroundStyle(ColorPalette.subtext)
                     if let points = snapshot?.trend, points.count > 1 {
-                        LineTrendChart(points: points.map { Double($0.totalTokens) })
+                        LineTrendChart(points: chartDisplayPoints(points.map { Double($0.totalTokens) }))
                     }
                 }
 
                 ListCard {
-                    Text("API Keys").font(.headline)
-                    TextField("搜索 name/key/group", text: $searchText)
-                        .textFieldStyle(.roundedBorder)
+                    HStack {
+                        Text("API Keys").font(.headline)
+                        Spacer()
+                        Text("\(filteredKeys.count)")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(ColorPalette.subtext)
+                    }
+                    StyledSearchField(text: $searchText, placeholder: "搜索名称 / 分组")
                     ForEach(filteredKeys) { key in
                         VStack(alignment: .leading, spacing: 4) {
                             HStack {
                                 Text(key.name).font(.subheadline.bold())
                                 Spacer()
-                                Button(copiedKeyID == key.id ? "已复制" : "复制") { copy(key) }
+                                Button {
+                                    copy(key)
+                                } label: {
+                                    Label(copiedKeyID == key.id ? "已复制" : "复制", systemImage: copiedKeyID == key.id ? "checkmark" : "doc.on.doc")
+                                }
+                                .buttonStyle(SecondaryButtonStyle())
                             }
                             Text(key.group?.name ?? "未分组").font(.caption).foregroundStyle(ColorPalette.subtext)
-                            Text(key.key).font(.caption2).foregroundStyle(ColorPalette.faintText)
-                            Text("已用 \(formatMoney(key.quotaUsed)) · 最近 \(displayDate(key.lastUsedAt))").font(.caption)
+                            Text("消费 \(formatUsageMoney(keyUsageCost(key))) · 最近 \(displayDate(key.lastUsedAt))").font(.caption)
                             Badge(text: key.status, tone: key.status == "active" ? .success : .muted)
                         }
                         Divider()
@@ -81,19 +92,41 @@ struct UserDetailView: View {
                 }
 
                 ListCard {
-                    Text("余额操作").font(.headline)
+                    HStack {
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text("余额操作").font(.headline)
+                            Text("当前 \(formatMoney(user.balance))")
+                                .font(.caption)
+                                .foregroundStyle(ColorPalette.subtext)
+                        }
+                        Spacer()
+                        Image(systemName: operation.systemImage)
+                            .font(.headline)
+                            .foregroundStyle(ColorPalette.accentText)
+                            .frame(width: 34, height: 34)
+                            .background(ColorPalette.accentBg.opacity(0.72), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    }
+
                     Picker("操作", selection: $operation) {
                         Text("充值").tag(BalanceOperation.add)
                         Text("扣减").tag(BalanceOperation.subtract)
                         Text("设为").tag(BalanceOperation.set)
                     }
                     .pickerStyle(.segmented)
-                    TextField("10", text: $amount)
-                        .keyboardType(.decimalPad)
-                        .textFieldStyle(.roundedBorder)
-                    TextField("备注", text: $notes)
-                        .textFieldStyle(.roundedBorder)
-                    Button("提交余额变更") { Task { await submitBalance() } }
+
+                    BalanceInputRow(systemImage: "yensign", accessibilityLabel: "金额") {
+                        TextField("10", text: $amount)
+                            .keyboardType(.decimalPad)
+                    }
+                    BalanceInputRow(systemImage: "note.text", accessibilityLabel: "备注") {
+                        TextField("备注", text: $notes, axis: .vertical)
+                            .lineLimit(1...3)
+                    }
+                    Button {
+                        Task { await submitBalance() }
+                    } label: {
+                        Label("提交余额变更", systemImage: "checkmark.circle")
+                    }
                         .buttonStyle(PrimaryButtonStyle())
                 }
             }
@@ -108,27 +141,74 @@ struct UserDetailView: View {
     private var filteredKeys: [AdminAPIKeyDTO] {
         let needle = searchText.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         guard !needle.isEmpty else { return keys }
-        return keys.filter { [$0.name, $0.key, $0.group?.name].compactMap { $0 }.joined(separator: " ").lowercased().contains(needle) }
+        return keys.filter { [$0.name, $0.group?.name].compactMap { $0 }.joined(separator: " ").lowercased().contains(needle) }
+    }
+
+    private func keyUsageCost(_ key: AdminAPIKeyDTO) -> Double {
+        let stats = usageByKeyID[key.id]
+        return stats?.totalActualCost ?? stats?.totalCost ?? key.quotaUsed
     }
 
     private func load() async {
+        loadGeneration += 1
+        let generation = loadGeneration
         do {
             let range = makeDateRange(rangeKey)
             async let userValue = client.getUser(userID)
             async let keysValue = client.listUserAPIKeys(userID: userID)
             async let usageValue = client.getUsageStats(params: ["user_id": userID, "start_date": range.startDate, "end_date": range.endDate, "range": rangeKey.rawValue])
-            async let snapshotValue = client.getDashboardSnapshot(params: ["user_id": userID, "include_stats": false, "include_trend": true, "include_model_stats": false, "include_group_stats": false, "include_users_trend": false])
+            async let snapshotValue = client.getDashboardSnapshot(params: [
+                "user_id": userID,
+                "start_date": range.startDate,
+                "end_date": range.endDate,
+                "granularity": range.granularity,
+                "include_stats": false,
+                "include_trend": true,
+                "include_model_stats": false,
+                "include_group_stats": false,
+                "include_users_trend": false
+            ])
             let nextUser = try await userValue
             let nextKeys = try await keysValue
             let nextUsage = try await usageValue
             let nextSnapshot = try await snapshotValue
+            let nextKeyUsage = await loadKeyUsage(nextKeys.items, range: range)
+            guard generation == loadGeneration, !Task.isCancelled else { return }
             user = nextUser
             keys = nextKeys.items
             usage = nextUsage
             snapshot = nextSnapshot
+            usageByKeyID = nextKeyUsage
             errorText = nil
         } catch {
+            guard generation == loadGeneration, !Task.isCancelled, !isCancellationError(error) else { return }
             errorText = errorMessage(error)
+        }
+    }
+
+
+    private func loadKeyUsage(_ keys: [AdminAPIKeyDTO], range: DateRangeQuery) async -> [Int: UsageStatsDTO] {
+        await withTaskGroup(of: (Int, UsageStatsDTO)?.self) { group in
+            for key in keys {
+                group.addTask {
+                    do {
+                        let stats = try await client.getUsageStats(params: [
+                            "api_key_id": key.id,
+                            "start_date": range.startDate,
+                            "end_date": range.endDate,
+                            "nocache": 1
+                        ])
+                        return (key.id, stats)
+                    } catch {
+                        return nil
+                    }
+                }
+            }
+            var result: [Int: UsageStatsDTO] = [:]
+            for await item in group {
+                if let (id, stats) = item { result[id] = stats }
+            }
+            return result
         }
     }
 
@@ -153,5 +233,42 @@ struct UserDetailView: View {
         UIPasteboard.general.string = key.key
         copiedKeyID = key.id
         Task { try? await Task.sleep(nanoseconds: 1_500_000_000); copiedKeyID = nil }
+    }
+}
+
+private extension BalanceOperation {
+    var systemImage: String {
+        switch self {
+        case .add: return "plus.circle"
+        case .subtract: return "minus.circle"
+        case .set: return "equal.circle"
+        }
+    }
+}
+
+private struct BalanceInputRow<Content: View>: View {
+    let systemImage: String
+    let accessibilityLabel: String
+    @ViewBuilder var content: Content
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Image(systemName: systemImage)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(ColorPalette.mutedText)
+                .frame(width: 22)
+            content
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+                .font(.body)
+        }
+        .padding(.horizontal, 12)
+        .frame(minHeight: 44)
+        .background(ColorPalette.card.opacity(0.72), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .stroke(ColorPalette.borderSoft, lineWidth: 1)
+        )
+        .accessibilityLabel(accessibilityLabel)
     }
 }

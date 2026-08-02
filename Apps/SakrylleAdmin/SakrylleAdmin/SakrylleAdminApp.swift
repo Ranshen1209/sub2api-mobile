@@ -9,10 +9,6 @@ struct SakrylleAdminApp: App {
         WindowGroup {
             RootView()
                 .environmentObject(appState)
-                .environment(\.adminAPIClient, AdminAPIClient(
-                    baseURLProvider: { appState.baseURL },
-                    apiKeyProvider: { appState.adminAPIKey }
-                ))
                 .environment(\.statusAPIClient, StatusAPIClient())
                 .task {
                     await appState.hydrate()
@@ -25,6 +21,9 @@ struct RootView: View {
     @EnvironmentObject private var appState: AppState
 
     var body: some View {
+        let baseURL = appState.baseURL
+        let adminAPIKey = appState.adminAPIKey
+
         Group {
             if !appState.hydrated {
                 ZStack {
@@ -37,6 +36,11 @@ struct RootView: View {
                 MainTabView()
             }
         }
+        .environment(\.adminAPIClient, AdminAPIClient(
+            baseURLProvider: { baseURL },
+            apiKeyProvider: { adminAPIKey }
+        ))
+        .fullScreenPageBackground()
     }
 }
 
@@ -53,5 +57,7 @@ struct MainTabView: View {
                 .tabItem { Label("服务器", systemImage: "server.rack") }
         }
         .tint(ColorPalette.primary)
+        .fullScreenPageBackground()
+        .edgeToEdgeToolbarChrome()
     }
 }

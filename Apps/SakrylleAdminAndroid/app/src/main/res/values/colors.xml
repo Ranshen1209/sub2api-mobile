@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- MD3 primary-container tone derived from the blossom's pink/coral seed colors. -->
+    <color name="ic_launcher_background">#FFD9E2</color>
+</resources>

@@ -24,7 +24,15 @@ func normalizeConfig(baseUrl: String, adminApiKey: String) -> (baseUrl: String, 
 }
 
 func accountLabel(for baseUrl: String) -> String {
-    URL(string: baseUrl)?.host ?? baseUrl
+    guard let host = URL(string: baseUrl)?.host ?? URL(string: "https://\(baseUrl)")?.host else {
+        return baseUrl
+    }
+    let parts = host.split(separator: ".").map(String.init)
+    guard parts.count >= 2 else { return host }
+    if parts.count >= 3 {
+        return parts[parts.count - 2]
+    }
+    return parts[0]
 }
 
 func createAccountID() -> String {

@@ -86,8 +86,10 @@ struct AccountsView: View {
             if let groups = account.groups, !groups.isEmpty {
                 Text(groups.prefix(3).map(\.name).joined(separator: " · ")).font(.caption).foregroundStyle(ColorPalette.subtext)
             }
-            if let error = account.errorMessage, !error.isEmpty {
+            if accountHasError(account), let error = account.errorMessage, !error.isEmpty {
                 Text(error).font(.caption).foregroundStyle(ColorPalette.danger)
+            } else if let error = account.errorMessage, !error.isEmpty {
+                Text("最近记录：\(error)").font(.caption).foregroundStyle(ColorPalette.subtext)
             }
             if let feedback = feedback[account.id] {
                 Text(feedback).font(.caption).foregroundStyle(ColorPalette.subtext)

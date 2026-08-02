@@ -2,6 +2,10 @@ import XCTest
 @testable import SakrylleShared
 
 final class FormatterTests: XCTestCase {
+    func testUsageMoneyKeepsSubCentConsumptionVisible() {
+        XCTAssertEqual(formatUsageMoney(0.0049), "￥0.0049")
+        XCTAssertEqual(formatUsageMoney(nil), "--")
+    }
     func testMoneyUsesYuanPrefix() {
         XCTAssertEqual(formatMoney(12.3), "￥12.30")
         XCTAssertEqual(formatMoney(nil), "--")

@@ -34,6 +34,23 @@ public struct APIEnvelope<T: Codable & Sendable>: Codable, Sendable {
         self.metadata = metadata
         self.data = data
     }
+
+    enum CodingKeys: String, CodingKey {
+        case code
+        case message
+        case reason
+        case metadata
+        case data
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        code = try container.decode(Int.self, forKey: .code)
+        message = try container.decodeIfPresent(String.self, forKey: .message) ?? ""
+        reason = try container.decodeIfPresent(String.self, forKey: .reason)
+        metadata = try container.decodeIfPresent([String: String].self, forKey: .metadata)
+        data = try container.decodeIfPresent(T.self, forKey: .data)
+    }
 }
 
 public struct EmptyResponse: Codable, Sendable, Equatable {

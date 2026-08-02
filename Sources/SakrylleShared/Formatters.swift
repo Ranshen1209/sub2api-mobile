@@ -62,3 +62,8 @@ public func formatMoney(_ value: Double?) -> String {
     guard let value else { return "--" }
     return "￥" + String(format: "%.2f", value)
 }
+
+public func formatUsageMoney(_ value: Double?) -> String {
+    guard let value else { return "--" }
+    return "￥" + String(format: "%.4f", value)
+}

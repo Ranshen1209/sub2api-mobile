@@ -13,6 +13,16 @@ final class DTOTests: XCTestCase {
         XCTAssertEqual(decoded.data?.pageSize, 20)
     }
 
+    func testEnvelopeDecodesMissingMessage() throws {
+        let data = #"{"code":0,"data":{"ok":true}}"#.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let decoded = try decoder.decode(APIEnvelope<JSONValue>.self, from: data)
+        XCTAssertEqual(decoded.code, 0)
+        XCTAssertEqual(decoded.message, "")
+        XCTAssertEqual(decoded.data, .object(["ok": .bool(true)]))
+    }
+
     func testDynamicDictionaryKeepsRawKeys() throws {
         let data = #"{"site_name":"Sakrylle","camelKey":true}"#.data(using: .utf8)!
         let decoded = try JSONDecoder().decode(AdminSettingsDTO.self, from: data)

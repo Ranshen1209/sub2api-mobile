@@ -23,8 +23,6 @@ struct MetricTile: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(12)
-        .background(ColorPalette.card)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
-        .overlay(RoundedRectangle(cornerRadius: 8).stroke(ColorPalette.borderSoft))
+        .liquidGlassCard(cornerRadius: 16)
     }
 }

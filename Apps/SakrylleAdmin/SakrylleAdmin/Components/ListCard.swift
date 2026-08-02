@@ -8,9 +8,7 @@ struct ListCard<Content: View>: View {
             content
         }
         .padding(14)
-        .background(ColorPalette.card)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
-        .overlay(RoundedRectangle(cornerRadius: 8).stroke(ColorPalette.borderSoft))
+        .liquidGlassCard(cornerRadius: 16)
     }
 }
 
